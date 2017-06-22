@@ -1,0 +1,96 @@
+@import '../../styles/variables.scss';
+
+.root {
+  color: $secondary-color;
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  height: 60px;
+  z-index: 1;
+}
+
+.link {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 1.25rem;
+  color: $secondary-color;
+  display: block;
+  text-decoration: none;
+  transition: background-color .2s ease;
+}
+
+.linkActive {
+  composes: link;
+  background: lighten($primary-color, 8%);
+}
+
+.link:hover {
+  background: lighten($primary-color, 8%);
+}
+
+@media (max-width: 600px) {
+  .nav {
+    align-items: flex-start;
+    background: $secondary-color;
+    box-shadow: 0 0 .3rem .1rem rgba($text-color, .1);
+    flex-direction: column;
+    height: 100vh;
+    justify-content: flex-start;
+    left: 0;
+    pointer-events: all;
+    position: absolute;
+    top: 0;
+    padding: 1rem 0;
+    transform: translateX(-105%);
+    transition: transform .3s ease;
+    width: 250px;
+    will-change: transform;
+  }
+
+  .navShown {
+    composes: nav;
+    transform: translateX(0);
+  }
+
+  .shadow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba($text-color, .4);
+    height: 100vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    width: 100vh;
+    will-change: opacity;
+  }
+
+  .shadowShown {
+    composes: shadow;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lever {
+    position: absolute;
+    height: 100vh;
+    width: 1.8rem;
+    top: 0;
+    right: -1.8rem;
+  }
+
+  .link {
+    color: $text-color;
+    font-weight: 400;
+    width: 100%;
+    background: transparent;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .link:hover, .linkActive {
+    background: darken($secondary-color, 5%);
+  }
+}

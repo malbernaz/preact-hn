@@ -1,0 +1,32 @@
+// Colors
+
+$primary-color: #673AB8;
+$secondary-color: #F5F5F5;
+$text-color: #222222;
+$text-color-lighter: #9F9F9F;
+$heading-color: #444444;
+$shadow-color: rgba(0, 0, 0, .1);
+
+// Fonts
+
+$text-family: -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  Helvetica,
+  Arial,
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol";
+
+$text-size: 16px;
+$text-weight: 400;
+
+// Media Queries
+
+$nav-collapse: 58rem;
+$tablet: 48rem;
+$mobile-l: 26.5625rem;
+$mobile-m: 23.4375rem;
+$mobile-s: 20rem;

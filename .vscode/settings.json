@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 100,
+  "javascript.validate.enable": false,
+  "python.autoComplete.extraPaths": [
+    "${env.SPARK_HOME}/python",
+    "${env.SPARK_HOME}/python/pyspark"
+  ]
+}

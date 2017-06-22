@@ -1,0 +1,36 @@
+{
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "globals": {
+    "_DEV_": true,
+    "_CLIENT_": true,
+    "Promise": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": [
+    "react",
+    "import",
+    "jsx-a11y"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "allowImportExportEverywhere": true
+  },
+  "rules": {
+    "no-console": "warn",
+    "react/prop-types": 0,
+    "react/display-name": 0,
+    "react/no-unknown-property": 0
+  },
+  "settings": {
+    "react": {
+      "pragma": "h"
+    }
+  }
+}

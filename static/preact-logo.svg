@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320">
+  <defs>
+    <filter id="a" width="320" height="320" x="-331" y="-370" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    <filter id="c" width="218" height="246" x="-280" y="-333" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation="5"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    <linearGradient id="b" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(300 300 -300 300 150 -150)">
+      <stop offset="0" stop-color="#673AB8"/>
+      <stop offset="1" stop-color="#9E7CDA"/>
+    </linearGradient>
+  </defs>
+  <g style="mix-blend-mode:normal" filter="url(#a)" transform="translate(331 370)">
+    <path fill="url(#b)" d="M0 8c0-4.4 3.6-8 8-8h284c4.4 0 8 3.6 8 8v284c0 4.4-3.6 8-8 8H8c-4.4 0-8-3.6-8-8V8z" transform="translate(-321 -360)" style="mix-blend-mode:normal"/>
+  </g>
+  <g fill="#F2F2F2" style="mix-blend-mode:normal" filter="url(#c)" transform="translate(331 370)">
+    <path d="M-177.2-249.6c-8.2-4.7-16.2-8-23.6-10.3-7.2-2-13-2.7-18-2-4.8.4-7.7 2-9.5 4-1.7 2-2.7 5.3-2.4 10 .3 5.3 2 10.8 5.4 17.5 2.5 5 5.6 10.2 9.5 15.4 6.2-7.5 13.6-15 22-22 5.5-4.6 11-8.7 16.6-12.4zM-141-260c-7.5 2.3-15.5 5.7-23.7 10.4 5.5 3.7 11 7.8 16.6 12.4 8.2 7 15.6 14.5 22 22 3.6-5.3 7-10.5 9.3-15.5 3.4-6.7 5-12.2 5.4-17.4.4-5-.7-8-2.4-10-1.8-2-4.7-3.8-9.5-4.3-5.2-.6-11 .2-18 2.3z" style="mix-blend-mode:normal"/>
+    <path fill-rule="evenodd" d="M-130.2-210c-6 7.5-13.5 15-22.2 22.2-6.2 5.2-12.4 9.8-18.6 13.7-6-4-12.4-8.7-18.6-14-8.6-7-16-14.6-22-22 6-7.5 13.4-15 22-22 6.2-5.5 12.6-10 18.6-14 6.2 4 12.4 8.4 18.6 13.7 8.7 7 16 14.6 22.2 22zm-40.8 14.2c8 0 14.2-6.3 14.2-14.2 0-7.8-6.3-14-14.2-14-7.8 0-14 6.2-14 14 0 8 6.2 14.2 14 14.2z" style="mix-blend-mode:normal"/>
+    <path d="M-126-204.7c3.7 5.3 7 10.4 9.4 15.4 3.4 6.8 5 12.3 5.4 17.4.4 5-.7 8-2.4 10-1.8 2.3-4.7 4-9.5 4.4-5.3.6-11-.2-18-2.3-7.6-2-15.6-5.5-23.8-10.2 5.5-3.7 11-7.8 16.6-12.4 8.3-7 15.7-14.5 22-22zM-225.3-189.3c2.5-5 5.6-10 9.5-15.4 6.2 7.5 13.6 15 22 22 5.5 4.6 11 8.7 16.6 12.4-8.2 4.7-16.2 8-23.6 10.3-7.2 2-13 3-18 2.3-4.8-.5-7.7-2-9.5-4.2-1.7-2-2.8-5-2.4-10 .3-5 2-10.4 5.4-17.2z" style="mix-blend-mode:normal"/>
+    <path fill-rule="evenodd" d="M-174.7-321c2.3-1.3 5.2-1.3 7.5 0l90.5 52.3c2.3 1.3 3.8 3.8 3.8 6.5v104.5c0 2.7-1.3 5.2-3.6 6.5L-167.2-99c-2.3 1.4-5.2 1.4-7.5 0l-90.5-52c-2.4-1.5-3.8-4-3.8-6.7v-104.5c0-2.7 1.4-5.2 3.8-6.5l90.5-52.3zm52.7 111c16.3 21.3 22.2 42 13.4 52.4-9.8 11.7-35.3 7.4-62.4-8.8-27 16.2-52.5 20.5-62.3 8.8-9-10.5-3-31 13.3-52.4-16.2-21.2-22.2-41.8-13.3-52.3 9.8-11.7 35.3-7.5 62.3 8.8 27-16.3 52.6-20.5 62.4-8.8 8.8 10.5 3 31-13.3 52.3z" style="mix-blend-mode:normal"/>
+  </g>
+</svg>

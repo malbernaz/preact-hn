@@ -1,0 +1,55 @@
+@import "../../styles/variables.scss";
+
+.root {
+  position: relative;
+  padding: 1rem 1.5rem 1rem 4.5rem;
+  border-bottom: 1px solid $shadow-color;
+  display: flex;
+  font-size: .85rem;
+}
+
+.root:last-child {
+  border: none;
+}
+
+.root a {
+  color: $text-color;
+}
+
+.root a:hover {
+  text-decoration: underline;
+}
+
+.numbers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+}
+
+.position {
+  color: $primary-color;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.points {
+  color: $text-color-lighter;
+}
+
+.row {
+  padding: .3rem 0;
+  line-height: 1.3rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  display: inline;
+}
