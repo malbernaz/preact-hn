@@ -94,11 +94,11 @@ export default class extends Component {
             this.nav = c;
           }}
         >
-          <NavLink currentRoute={currentRoute} to="/">top</NavLink>
-          <NavLink currentRoute={currentRoute} to="/new">new</NavLink>
-          <NavLink currentRoute={currentRoute} to="/show">show</NavLink>
-          <NavLink currentRoute={currentRoute} to="/ask">ask</NavLink>
-          <NavLink currentRoute={currentRoute} to="/jobs">jobs</NavLink>
+          <NavLink currentRoute={currentRoute} onClick={toggle} to="/">top</NavLink>
+          <NavLink currentRoute={currentRoute} onClick={toggle} to="/new">new</NavLink>
+          <NavLink currentRoute={currentRoute} onClick={toggle} to="/show">show</NavLink>
+          <NavLink currentRoute={currentRoute} onClick={toggle} to="/ask">ask</NavLink>
+          <NavLink currentRoute={currentRoute} onClick={toggle} to="/jobs">jobs</NavLink>
           <div
             class={s.lever}
             onClick={navOpened && toggle}

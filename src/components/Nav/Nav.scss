@@ -34,7 +34,7 @@
   .nav {
     align-items: flex-start;
     background: $secondary-color;
-    box-shadow: 0 0 .3rem .1rem rgba($text-color, .1);
+    box-shadow: 0 0 .3rem .1rem $shadow-color;
     flex-direction: column;
     height: 100vh;
     justify-content: flex-start;
