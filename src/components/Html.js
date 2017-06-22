@@ -21,14 +21,14 @@ export default ({ chunks, commonjs, component, script, style, title }) =>
         <link color={l.color} href={l.href} rel={l.rel} sizes={l.sizes} type={l.type} />
       )}
 
-      {chunks.map(c => <link rel="preload" as="script" href={c} />)}
+      {chunks.map(c => <link rel="preload" as="script" href={`/${c}`} />)}
 
       <style id="css">{style}</style>
     </head>
     <body>
       <main dangerouslySetInnerHTML={{ __html: component }} />
 
-      <script src={commonjs} defer />
-      <script src={script} defer />
+      <script src={`/${commonjs}`} defer />
+      <script src={`/${script}`} defer />
     </body>
   </html>;

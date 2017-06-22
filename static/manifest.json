@@ -1,5 +1,6 @@
 {
   "name": "Preact HN",
+  "short_name": "Preact HN",
   "icons": [{
     "src": "/android-chrome-192x192.png",
     "sizes": "192x192",

@@ -53,9 +53,15 @@
   height: 60px;
 }
 
-.aboutIcon {
+.aboutLink svg {
   height: 1.5rem;
   fill: $secondary-color;
+}
+
+.aboutLink span {
+  top: -100%;
+  left: -100%;
+  position: absolute;
 }
 
 .menu {

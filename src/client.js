@@ -35,9 +35,7 @@ const mnt = document.querySelector("main");
 
 async function bootstrap(location) {
   if (FIRST_RENDER) {
-    if (process.env.NODE_ENV === "production") {
-      await registerServiceWorker();
-    }
+    await registerServiceWorker();
 
     if (!self.fetch) {
       await import("isomorphic-fetch" /* webpackChunkName: "fetch-polyfill" */);

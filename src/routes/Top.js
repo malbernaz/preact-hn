@@ -1,7 +1,7 @@
 import { h } from "preact";
 
 export default {
-  path: /^(\/\d+|\/)$/i,
+  path: "/:page(\\d+)?",
   async action() {
     const { default: Stories } = await import(
       "../components/Stories" /* webpackChunkName: "stories" */

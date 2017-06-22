@@ -1,0 +1,24 @@
+@import '../../styles/variables.scss';
+
+.root {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 3px solid $primary-color;
+  border-bottom-color: transparent;
+  animation: spin 1.5s linear infinite;
+  will-change: transform;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

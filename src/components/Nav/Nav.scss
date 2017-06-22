@@ -31,6 +31,10 @@
 }
 
 @media (max-width: 600px) {
+  .lockScroll {
+    overflow: hidden;
+  }
+
   .nav {
     align-items: flex-start;
     background: $secondary-color;

@@ -16,7 +16,7 @@
   color: $text-color;
 }
 
-.root a:hover {
+.root a:not(.title):hover {
   text-decoration: underline;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .points {
-  color: $text-color-lighter;
+  color: lighten($text-color, 10%);
 }
 
 .row {
@@ -48,8 +48,8 @@
   line-height: 1.3rem;
 }
 
-.title {
+.title h2 {
   margin: 0;
   font-size: 1rem;
-  display: inline;
+  color: $heading-color;
 }

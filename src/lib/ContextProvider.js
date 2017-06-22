@@ -6,6 +6,6 @@ export default class ContextProvider extends Component {
   }
 
   render({ children }) {
-    return (children && children[0]) || null;
+    return children[0];
   }
 }

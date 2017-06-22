@@ -48,8 +48,9 @@ export default class extends Component {
               handleNavOpen={this.handleNavOpen}
             />
           </div>
-          <Link to="/about">
-            <Info class={s.aboutIcon} />
+          <Link to="/about" class={s.aboutLink}>
+            <Info />
+            <span>about</span>
           </Link>
         </div>
         {"/about" !== currentRoute && !notFound && <Pagination />}

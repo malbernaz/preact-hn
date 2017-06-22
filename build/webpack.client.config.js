@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import webpack, { HotModuleReplacementPlugin, NamedModulesPlugin } from "webpack";
+import webpack from "webpack";
 
 import { StatsWriterPlugin as StatsPlugin } from "webpack-stats-plugin";
 import CopyPlugin from "copy-webpack-plugin";
@@ -61,7 +61,7 @@ export default ({ DEV, baseConfig }) => ({
         to: resolve(__dirname, "..", "dist", "public")
       }
     ])
-  ].concat(DEV ? [new HotModuleReplacementPlugin(), new NamedModulesPlugin()] : []),
+  ].concat(DEV ? [new webpack.HotModuleReplacementPlugin(), new webpack.NamedModulesPlugin()] : []),
   devServer: {
     port: 3001,
     host: "0.0.0.0",

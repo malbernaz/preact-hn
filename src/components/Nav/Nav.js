@@ -43,7 +43,7 @@ export default class extends Component {
     this.shadow.style.transition = "none";
     this.nav.style.transition = "none";
 
-    document.body.style.overflowY = "hidden";
+    document.body.classList.add(s.lockScroll);
   };
 
   onTouchMove = event => {
@@ -72,7 +72,11 @@ export default class extends Component {
   };
 
   toggleBodyScroll = () => {
-    document.body.style.overflowY = this.props.navOpened ? "hidden" : "";
+    if (this.props.navOpened) {
+      document.body.classList.add(s.lockScroll);
+    } else {
+      document.body.classList.remove(s.lockScroll);
+    }
   };
 
   render({ currentRoute, navOpened, toggle }) {
