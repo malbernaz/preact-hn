@@ -10,8 +10,6 @@ Firebase.initializeApp({
 
 const api = Firebase.database().ref("/v0");
 
-const LOG_REQUESTS = _DEV_;
-
 if (api.onServer) {
   warmCache();
 }
@@ -22,10 +20,8 @@ function warmCache() {
 }
 
 function fetchAPI(child) {
-  LOG_REQUESTS && console.log(`fetching ${child}...`);
   const cache = api.cachedItems;
   if (cache && cache.has(child)) {
-    LOG_REQUESTS && console.log(`cache hit for ${child}.`);
     return Promise.resolve(cache.get(child));
   } else {
     return new Promise((resolve, reject) => {
@@ -33,10 +29,8 @@ function fetchAPI(child) {
         "value",
         snapshot => {
           const val = snapshot.val();
-          // mark the timestamp when this item is cached
           if (val) val.__lastUpdated = Date.now();
           cache && cache.set(child, val);
-          LOG_REQUESTS && console.log(`fetched ${child}.`);
           resolve(val);
         },
         reject

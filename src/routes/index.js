@@ -16,7 +16,7 @@ export default {
     if (postMiddleware) postMiddleware(route);
 
     const component = (
-      <Root currentRoute={url} notFound={route.title === "NOT FOUND"}>
+      <Root page={route.page} currentRoute={url} notFound={route.title === "NOT FOUND"}>
         {route.component}
       </Root>
     );

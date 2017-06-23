@@ -1,6 +1,7 @@
 import { h } from "preact";
 
 import withStyles from "../../lib/withStyles";
+import timeago from "../../lib/timeago";
 
 import s from "./Card.scss";
 
@@ -18,7 +19,8 @@ export default withStyles(s)(props =>
         </a>
       </div>
       <div class={s.row}>
-        by <a>{props.by}</a> 4 hours ago | <a>45 comments</a>
+        by <a>{props.by}</a> {timeago(props.time)} ago |{" "}
+        <a>{props.kids ? props.descendants : "0"} comments</a>
       </div>
     </div>
   </div>

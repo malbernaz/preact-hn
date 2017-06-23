@@ -1,16 +1,19 @@
 import { h } from "preact";
+import { connect } from "../lib/unistore";
 
 function createRoute({ path, title, type }) {
   return {
     path,
-    async action() {
+    async action(ctx, { page }) {
       const { default: Stories } = await import(
         "../components/Stories" /* webpackChunkName: "stories" */
       );
 
-      const component = <Stories type={type} />;
+      const WrappedStories = connect(state => ({ ...state[type] }))(props =>
+        <Stories {...props} type={type} page={page || 1} />
+      );
 
-      return { title, component };
+      return { title, page, component: <WrappedStories /> };
     }
   };
 }

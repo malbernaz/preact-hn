@@ -6,11 +6,19 @@ import history from "./lib/history";
 import Provider from "./lib/ContextProvider";
 import registerServiceWorker from "./sw-register";
 import UseScroll from "./lib/middleware/useScroll";
+import createStore from "./lib/unistore";
 
 let CURRENT_LOCATION = history.location;
 let FIRST_RENDER = true;
 
 const scroll = new UseScroll(CURRENT_LOCATION);
+
+const store = createStore(
+  ["top", "new", "show", "ask", "job"].reduce(
+    (acc, t) => ({ ...acc, [t]: { itemsFetched: false } }),
+    {}
+  )
+);
 
 const routerMiddleware = {
   preMiddleware() {
@@ -23,13 +31,13 @@ const routerMiddleware = {
   }
 };
 
-const context = {
-  insertCss(...styles) {
-    const removeCss = styles.map(x => x._insertCss());
+function insertCss(...styles) {
+  const removeCss = styles.map(x => x._insertCss());
 
-    return () => removeCss.forEach(f => f());
-  }
-};
+  return () => removeCss.forEach(f => f());
+}
+
+const context = { insertCss, store };
 
 const mnt = document.querySelector("main");
 

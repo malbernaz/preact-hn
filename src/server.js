@@ -16,6 +16,7 @@ import serveFavicon from "serve-favicon";
 import assets from "./assets"; // eslint-disable-line import/extensions
 import Html from "./components/Html";
 import Provider from "./lib/ContextProvider";
+import createStore from "./lib/unistore";
 import routes from "./routes";
 
 const app = express();
@@ -57,7 +58,14 @@ app.get("*", async (req, res, next) => {
 
     const css = [];
 
-    const context = { insertCss: (...s) => s.forEach(style => css.push(style._getCss())) };
+    const store = createStore(
+      ["top", "new", "show", "ask", "job"].reduce(
+        (acc, t) => ({ ...acc, [t]: { itemsFetched: false } }),
+        {}
+      )
+    );
+
+    const context = { insertCss: (...s) => s.forEach(style => css.push(style._getCss())), store };
 
     const route = await router.resolve({ path: req.path });
 
@@ -69,8 +77,9 @@ app.get("*", async (req, res, next) => {
 
     const data = {
       chunks,
-      commonjs: assets.commons.js,
+      vendor: assets.vendor.js,
       component,
+      manifest: assets.manifest.js,
       script: assets.main.js,
       style: css.join(""),
       title: route.title

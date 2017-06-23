@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 
 import withStyles from "../../lib/withStyles";
-import { fetchIdsByType, fetchItems } from "../../lib/HNService";
+import { fetchIdsByType, fetchItems, watchList } from "../../lib/HNService";
 
 import Wrapper from "../Wrapper";
 import Card from "../Card";
@@ -11,38 +11,49 @@ import s from "./Stories.scss";
 
 @withStyles(s)
 export default class extends Component {
-  state = { items: [] };
-
   componentDidMount() {
-    this.fetchItems();
+    this.initialize(this.props.type);
   }
 
-  componentWillReceiveProps() {
-    this.fetchItems();
+  componentWillUnmount() {
+    if (this.unwatchList) this.unwatchList();
   }
 
-  fetchItems = async () => {
+  setTypeState(state) {
+    const { type, store } = this.props;
+    store.setState({ [type]: { ...store.getState()[type], ...state } });
+  }
+
+  async initialize(type) {
+    const ids = await fetchIdsByType(type);
+    this.setTypeState({ ids });
+    this.fetchItems(ids);
+    this.unwatchList = watchList(type, this.fetchItems);
+  }
+
+  fetchItems = async ids => {
+    const { page } = this.props;
+    const offset = page * 30;
     try {
-      const { type } = this.props;
-
-      const ids = await fetchIdsByType(type);
-
-      const items = await fetchItems(ids);
-
-      this.setState({ items });
+      const items = await fetchItems(ids.slice(offset - 30, offset));
+      this.setTypeState({ [page]: items, itemsFetched: true });
     } catch (err) {
       console.error(err); // eslint-disable-line no-console
     }
   };
 
-  render(props, { items }) {
+  render({ page, itemsFetched, ...rest }) {
     return (
       <Wrapper>
-        {!items.length
+        {!itemsFetched
           ? <Spinner />
           : <div class={s.root}>
-              {items.map((item, index) =>
-                <Card {...item} key={`card-${item.id}`} index={index + 1} />
+              {rest[page].map((item, index) =>
+                <Card
+                  {...item}
+                  key={`card-${item.id}`}
+                  index={page * 30 + parseInt(index, 10) + 1 - 30}
+                />
               )}
             </div>}
       </Wrapper>

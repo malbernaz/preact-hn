@@ -12,7 +12,7 @@ export default ({ DEV, baseConfig }) => ({
   ...baseConfig,
   entry: {
     ...baseConfig.entry,
-    commons: ["preact", "history/createBrowserHistory", "universal-router"]
+    vendor: ["preact", "history/createBrowserHistory", "universal-router"]
   },
   resolve: {
     ...baseConfig.resolve,
@@ -51,8 +51,10 @@ export default ({ DEV, baseConfig }) => ({
       transform: transform({ DEV })
     }),
     new CommonsChunkPlugin({
-      name: "commons",
-      minChunks: Infinity
+      names: ["common", "vendor"]
+    }),
+    new CommonsChunkPlugin({
+      name: "manifest"
     }),
     new CopyPlugin([
       {
