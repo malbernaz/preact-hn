@@ -1,11 +1,7 @@
 import { h } from "preact";
 
 import Root from "../components/Root";
-import Top from "./Top";
-import New from "./New";
-import Show from "./Show";
-import Ask from "./Ask";
-import Jobs from "./Jobs";
+import createRoutes from "./createRoutes";
 import About from "./About";
 import NotFound from "./NotFound";
 
@@ -28,5 +24,5 @@ export default {
     return { ...route, component };
   },
 
-  children: [Top, New, Show, Ask, Jobs, About, NotFound]
+  children: [...createRoutes, About, NotFound]
 };

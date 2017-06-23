@@ -4,7 +4,7 @@ importScripts("assets.js");
 
 const VERSION = self.staticAssets.hash;
 const STATIC_ASSETS = self.staticAssets.assets;
-const STATIC_PAGES = ["/", "/about", "/contact", "/notfound"];
+const STATIC_PAGES = ["/", "/new", "/show", "/ask", "/jobs", "/notfound"];
 
 self.oninstall = event =>
   event.waitUntil(
