@@ -6,8 +6,7 @@
   left: 0;
   width: 100%;
   background: $primary-color;
-  z-index: 1;
-  box-shadow: 0 .1rem .5rem $shadow-color;
+  z-index: 2;
 }
 
 .wrapper {
@@ -33,6 +32,7 @@
 
 .logo {
   margin-right: 1rem;
+  text-decoration: none;
 }
 
 .logo svg {
@@ -45,7 +45,6 @@
   width: 0;
   opacity: 0;
   pointer-events: none;
-  text-decoration: none;
 }
 
 .mainNav {

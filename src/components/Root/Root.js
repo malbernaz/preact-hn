@@ -6,9 +6,9 @@ import Header from "../Header";
 
 import s from "./Root.scss";
 
-export default withStyles(s)(({ children, currentRoute, notFound }) =>
+export default withStyles(s)(({ children, currentRoute, notFound, routes }) =>
   <div class={s.root}>
-    <Header currentRoute={currentRoute} notFound={notFound} />
+    <Header currentRoute={currentRoute} routes={routes} notFound={notFound} />
     {children}
   </div>
 );

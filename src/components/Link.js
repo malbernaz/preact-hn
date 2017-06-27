@@ -1,7 +1,7 @@
 import { h, Component } from "preact";
 import history from "../lib/history";
 
-class Link extends Component {
+export default class extends Component {
   handleClick = e => {
     if (this.props.onClick) this.props.onClick(e);
 
@@ -20,5 +20,3 @@ class Link extends Component {
     return <a href={to} {...props} onClick={this.handleClick}>{children}</a>;
   }
 }
-
-export default Link;

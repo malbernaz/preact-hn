@@ -1,9 +1,10 @@
 @import "../../styles/variables.scss";
 
 .root {
-  margin: 2rem 0;
+  margin: 82px 0 32px;
   background: $secondary-color;
+
   @media (max-width: $tablet) {
-    margin: 1rem 0;
+    margin: 66px 0 16px;
   }
 }

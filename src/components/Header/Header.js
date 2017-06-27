@@ -9,7 +9,6 @@ import Info from "../icons/Info";
 import Menu from "../icons/Menu";
 import Link from "../Link";
 import Nav from "../Nav";
-import Pagination from "../Pagination";
 
 import s from "./Header.scss";
 
@@ -29,7 +28,7 @@ export default class extends Component {
     }
   };
 
-  render({ currentRoute, notFound }, { navOpened }) {
+  render({ currentRoute, notFound, routes }, { navOpened }) {
     return (
       <header class={s.root}>
         <div class={s.wrapper}>
@@ -45,6 +44,7 @@ export default class extends Component {
               currentRoute={currentRoute}
               navOpened={navOpened}
               toggle={this.toggle}
+              routes={routes}
               handleNavOpen={this.handleNavOpen}
             />
           </div>
@@ -53,7 +53,6 @@ export default class extends Component {
             <span>about</span>
           </Link>
         </div>
-        {"/about" !== currentRoute && !notFound && <Pagination />}
       </header>
     );
   }

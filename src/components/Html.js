@@ -4,7 +4,7 @@ import { h } from "preact";
 
 import config from "../config";
 
-export default ({ chunks, vendor, component, manifest, script, style, title }) =>
+export default ({ chunks, vendor, component, manifest, script, style, title, initialState }) =>
   <html lang={config.lang}>
     <head>
       <meta charSet="utf-8" />
@@ -27,6 +27,8 @@ export default ({ chunks, vendor, component, manifest, script, style, title }) =
     </head>
     <body>
       <main dangerouslySetInnerHTML={{ __html: component }} />
+
+      <script dangerouslySetInnerHTML={{ __html: initialState }} />
 
       <script src={`/${manifest}`} defer />
       <script src={`/${vendor}`} defer />

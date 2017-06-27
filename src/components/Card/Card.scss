@@ -14,6 +14,7 @@
 
 .root a {
   color: $text-color;
+  text-decoration: none;
 }
 
 .root a:not(.title):hover {

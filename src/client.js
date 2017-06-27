@@ -6,19 +6,12 @@ import history from "./lib/history";
 import Provider from "./lib/ContextProvider";
 import registerServiceWorker from "./sw-register";
 import UseScroll from "./lib/middleware/useScroll";
-import createStore from "./lib/unistore";
+import store from "./store";
 
 let CURRENT_LOCATION = history.location;
 let FIRST_RENDER = true;
 
 const scroll = new UseScroll(CURRENT_LOCATION);
-
-const store = createStore(
-  ["top", "new", "show", "ask", "job"].reduce(
-    (acc, t) => ({ ...acc, [t]: { itemsFetched: false } }),
-    {}
-  )
-);
 
 const routerMiddleware = {
   preMiddleware() {
@@ -43,7 +36,7 @@ const mnt = document.querySelector("main");
 
 async function bootstrap(location) {
   if (FIRST_RENDER) {
-    await registerServiceWorker();
+    if (!_DEV_) await registerServiceWorker();
 
     if (!self.fetch) {
       await import("isomorphic-fetch" /* webpackChunkName: "fetch-polyfill" */);
@@ -58,7 +51,7 @@ async function bootstrap(location) {
 
   const { pathname } = location;
 
-  const route = await router.resolve({ path: pathname, ...routerMiddleware });
+  const route = await router.resolve({ path: pathname, store, ...routerMiddleware });
 
   const component = (
     <Provider context={context}>

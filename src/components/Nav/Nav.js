@@ -8,14 +8,7 @@ import Link from "../Link";
 import s from "./Nav.scss";
 
 function isActive(props) {
-  if (props.to === "/") {
-    const page = props.currentRoute.split("/")[1];
-    if (!page) {
-      return true;
-    }
-    return !isNaN(page);
-  }
-  return props.currentRoute === props.to;
+  return props.routes[props.children].test(props.currentRoute);
 }
 
 const NavLink = props =>
@@ -79,7 +72,7 @@ export default class extends Component {
     }
   };
 
-  render({ currentRoute, navOpened, toggle }) {
+  render({ currentRoute, navOpened, toggle, routes }) {
     return (
       <div class={s.root}>
         <div
@@ -98,11 +91,21 @@ export default class extends Component {
             this.nav = c;
           }}
         >
-          <NavLink currentRoute={currentRoute} onClick={toggle} to="/">top</NavLink>
-          <NavLink currentRoute={currentRoute} onClick={toggle} to="/new">new</NavLink>
-          <NavLink currentRoute={currentRoute} onClick={toggle} to="/show">show</NavLink>
-          <NavLink currentRoute={currentRoute} onClick={toggle} to="/ask">ask</NavLink>
-          <NavLink currentRoute={currentRoute} onClick={toggle} to="/jobs">jobs</NavLink>
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/">
+            top
+          </NavLink>
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/new">
+            new
+          </NavLink>
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/show">
+            show
+          </NavLink>
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/ask">
+            ask
+          </NavLink>
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/job">
+            jobs
+          </NavLink>
           <div
             class={s.lever}
             onClick={navOpened && toggle}

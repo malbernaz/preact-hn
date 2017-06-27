@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 
+import "isomorphic-fetch";
+
 import http from "http";
 import spdy from "spdy";
 
@@ -16,7 +18,7 @@ import serveFavicon from "serve-favicon";
 import assets from "./assets"; // eslint-disable-line import/extensions
 import Html from "./components/Html";
 import Provider from "./lib/ContextProvider";
-import createStore from "./lib/unistore";
+import store from "./store";
 import routes from "./routes";
 
 const app = express();
@@ -58,16 +60,9 @@ app.get("*", async (req, res, next) => {
 
     const css = [];
 
-    const store = createStore(
-      ["top", "new", "show", "ask", "job"].reduce(
-        (acc, t) => ({ ...acc, [t]: { itemsFetched: false } }),
-        {}
-      )
-    );
-
     const context = { insertCss: (...s) => s.forEach(style => css.push(style._getCss())), store };
 
-    const route = await router.resolve({ path: req.path });
+    const route = await router.resolve({ path: req.path, store });
 
     const component = render(
       <Provider context={context}>
@@ -77,12 +72,13 @@ app.get("*", async (req, res, next) => {
 
     const data = {
       chunks,
-      vendor: assets.vendor.js,
       component,
+      initialState: `__INITIAL_STATE__=${JSON.stringify(store.getState())}`,
       manifest: assets.manifest.js,
       script: assets.main.js,
       style: css.join(""),
-      title: route.title
+      title: route.title,
+      vendor: assets.vendor.js
     };
 
     res.send(`<!DOCTYPE html>${render(<Html {...data} />)}`);

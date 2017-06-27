@@ -7,6 +7,12 @@
   align-items: center;
   justify-content: center;
   font-size: .9rem;
+  box-shadow: 0 .1rem .5rem $shadow-color;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 .count {
@@ -15,4 +21,16 @@
   text-align: center;
   letter-spacing: 2px;
   font-weight: 600;
+}
+
+.root a {
+  color: $text-color;
+  text-decoration: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.disabled {
+  opacity: .3;
+  pointer-events: none;
 }

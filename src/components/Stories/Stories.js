@@ -1,8 +1,11 @@
 import { h, Component } from "preact";
+// import { debounce } from "decko";
 
 import withStyles from "../../lib/withStyles";
-import { fetchIdsByType, fetchItems, watchList } from "../../lib/HNService";
+import { watchList } from "../../lib/HNService";
+import { fetchStories } from "../../actions";
 
+import Pagination from "../Pagination";
 import Wrapper from "../Wrapper";
 import Card from "../Card";
 import Spinner from "../Spinner";
@@ -11,44 +14,30 @@ import s from "./Stories.scss";
 
 @withStyles(s)
 export default class extends Component {
-  componentDidMount() {
-    this.initialize(this.props.type);
+  async componentDidMount() {
+    const { page, type } = this.props;
+    this.unwatchList = watchList(type, fetchStories(type, page));
+  }
+
+  componentWillReceiveProps({ page, type }) {
+    if (page !== this.props.page) {
+      this.unwatchList();
+      this.unwatchList = watchList(type, fetchStories(type, page));
+    }
   }
 
   componentWillUnmount() {
     if (this.unwatchList) this.unwatchList();
   }
 
-  setTypeState(state) {
-    const { type, store } = this.props;
-    store.setState({ [type]: { ...store.getState()[type], ...state } });
-  }
-
-  async initialize(type) {
-    const ids = await fetchIdsByType(type);
-    this.setTypeState({ ids });
-    this.fetchItems(ids);
-    this.unwatchList = watchList(type, this.fetchItems);
-  }
-
-  fetchItems = async ids => {
-    const { page } = this.props;
-    const offset = page * 30;
-    try {
-      const items = await fetchItems(ids.slice(offset - 30, offset));
-      this.setTypeState({ [page]: items, itemsFetched: true });
-    } catch (err) {
-      console.error(err); // eslint-disable-line no-console
-    }
-  };
-
-  render({ page, itemsFetched, ...rest }) {
+  render({ page, type, itemsFetched, [page]: items = [], ids }) {
     return (
       <Wrapper>
-        {!itemsFetched
+        <Pagination page={page} type={type} ids={ids} />
+        {!itemsFetched && !items.length
           ? <Spinner />
           : <div class={s.root}>
-              {rest[page].map((item, index) =>
+              {items.map((item, index) =>
                 <Card
                   {...item}
                   key={`card-${item.id}`}
