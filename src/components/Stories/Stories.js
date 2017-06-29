@@ -1,8 +1,7 @@
 import { h, Component } from "preact";
 
 import withStyles from "../../lib/withStyles";
-import { watchList } from "../../lib/HNService";
-import { fetchStories } from "../../actions";
+import { watchList } from "../../actions";
 
 import Wrapper from "../Wrapper";
 import Card from "../Card";
@@ -14,13 +13,13 @@ import s from "./Stories.scss";
 export default class extends Component {
   async componentDidMount() {
     const { page, type } = this.props;
-    this.unwatchList = watchList(type, fetchStories(type, page));
+    this.unwatchList = watchList(type, page);
   }
 
   componentWillReceiveProps({ page, type }) {
     if (page !== this.props.page) {
       this.unwatchList();
-      this.unwatchList = watchList(type, fetchStories(type, page));
+      this.unwatchList = watchList(type, page);
     }
   }
 
@@ -39,7 +38,6 @@ export default class extends Component {
                   {...item}
                   key={`card-${item.id}`}
                   index={page * 30 + parseInt(index, 10) + 1 - 30}
-                  id={index}
                 />
               )}
             </div>}

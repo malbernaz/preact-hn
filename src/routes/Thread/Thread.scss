@@ -1,4 +1,24 @@
-.sectionTitle {
-  color: dodgerblue;
+@import "../../styles/variables.scss";
+
+.root {
   margin-bottom: 2rem;
+}
+
+.header {
+  padding: 2rem;
+  background: $secondary-color;
+}
+
+.header h1 {
+  margin: 0 0 1rem;
+  font-size: 1.5em;
+  color: $heading-color;
+}
+
+.info {
+  color: $text-color-lighter;
+}
+
+.text {
+  margin-bottom: 0;
 }

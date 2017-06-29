@@ -7,8 +7,9 @@ import Router from "universal-router";
 import animated from "../lib/animated";
 
 import Root from "../components/Root";
-import storyRoutes from "./createRoutes";
+import storyRoutes from "./createStoryTypes";
 import About from "./About";
+import Thread from "./Thread";
 import NotFound from "./NotFound";
 
 export default {
@@ -38,5 +39,5 @@ export default {
     return { ...route, component };
   },
 
-  children: [...storyRoutes, About, NotFound]
+  children: [...storyRoutes, About, Thread, NotFound]
 };

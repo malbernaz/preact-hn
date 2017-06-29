@@ -18,9 +18,16 @@ export default class extends Component {
     }, this.props.delay);
   };
 
-  render({ to, children, ...props }) {
+  render({ to, children, blank, ...props }) {
+    const blankProps = blank
+      ? {
+          rel: "noreferrer noopener",
+          target: "_blank"
+        }
+      : {};
+
     return (
-      <a href={to} {...props} onClick={this.handleClick}>
+      <a href={to} {...props} {...blankProps} onClick={!blank && this.handleClick}>
         {children}
       </a>
     );
