@@ -1,4 +1,4 @@
-import { h, render } from "preact";
+import { h, render, options } from "preact";
 import Router from "universal-router";
 
 import { updateTitle } from "./lib/updateTag";
@@ -10,6 +10,8 @@ import store from "./store";
 
 let CURRENT_LOCATION = history.location;
 let FIRST_RENDER = true;
+
+options.debounceRendering = requestAnimationFrame;
 
 const scroll = new UseScroll(CURRENT_LOCATION);
 

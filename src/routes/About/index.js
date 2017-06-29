@@ -6,7 +6,7 @@ export default {
     const { default: About } = await import("./About" /* webpackChunkName: "about" */);
 
     return {
-      title: "ABOUT",
+      title: "about",
       component: <About />
     };
   }

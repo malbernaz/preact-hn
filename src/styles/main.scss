@@ -14,7 +14,8 @@ body {
   background: darken($secondary-color, 5%);
 }
 
-body, main {
+body,
+main {
   min-height: 100vh;
 }
 
@@ -33,4 +34,9 @@ input {
 
 input:focus {
   outline: none;
+}
+
+:global(.route-transition-container) {
+  position: relative;
+  width: 100%;
 }

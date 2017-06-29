@@ -1,4 +1,5 @@
 import { h } from "preact";
+
 import { connect } from "../lib/unistore";
 import { fetchIds, fetchStories } from "../actions";
 
@@ -32,12 +33,18 @@ function createRoute({ path, title, type }) {
         fetchStories(type, page)(ids);
       }
 
-      const WrappedStories = connect(state => ({
-        ...state[type],
-        ids: state[state.currentStory].ids
-      }))(props => <Stories {...props} type={type} page={page} />);
+      const mapToProps = state => ({ ...state[type] });
 
-      return { title, page, component: <WrappedStories /> };
+      const WrappedStories = connect(mapToProps)(props =>
+        <Stories {...props} currentRoute={url} type={type} page={page} />
+      );
+
+      return {
+        title,
+        page,
+        type,
+        component: <WrappedStories />
+      };
     }
   };
 }

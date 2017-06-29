@@ -15,6 +15,41 @@
   z-index: 1;
 }
 
+.enter {
+  animation: enter .3s ease-in;
+  animation-fill-mode: forwards;
+  pointer-events: all;
+}
+
+.leave {
+  animation: leave .3s ease-in;
+  pointer-events: none;
+  animation-fill-mode: forwards;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes leave {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .count {
   display: block;
   width: 80px;

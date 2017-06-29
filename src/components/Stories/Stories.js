@@ -1,11 +1,9 @@
 import { h, Component } from "preact";
-// import { debounce } from "decko";
 
 import withStyles from "../../lib/withStyles";
 import { watchList } from "../../lib/HNService";
 import { fetchStories } from "../../actions";
 
-import Pagination from "../Pagination";
 import Wrapper from "../Wrapper";
 import Card from "../Card";
 import Spinner from "../Spinner";
@@ -30,18 +28,18 @@ export default class extends Component {
     if (this.unwatchList) this.unwatchList();
   }
 
-  render({ page, type, itemsFetched, [page]: items = [], ids }) {
+  render({ page, itemsFetched, [page]: items = [] }) {
     return (
       <Wrapper>
-        <Pagination page={page} type={type} ids={ids} />
         {!itemsFetched && !items.length
           ? <Spinner />
-          : <div class={s.root}>
+          : <div id="animate" class={s.root}>
               {items.map((item, index) =>
                 <Card
                   {...item}
                   key={`card-${item.id}`}
                   index={page * 30 + parseInt(index, 10) + 1 - 30}
+                  id={index}
                 />
               )}
             </div>}

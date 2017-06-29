@@ -38,7 +38,7 @@ export default function createStore(state = {}) {
  */
 export function connect(mapToProps) {
   return Child =>
-    class extends Component {
+    class Connected extends Component {
       state = this.getProps();
       update = () => {
         let mapped = this.getProps();

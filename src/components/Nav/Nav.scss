@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .root {
   color: $secondary-color;
@@ -18,6 +18,7 @@
   display: block;
   text-decoration: none;
   transition: background-color .2s ease;
+  text-transform: capitalize;
 }
 
 .linkActive {

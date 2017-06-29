@@ -3,8 +3,41 @@
 .root {
   margin: 82px 0 32px;
   background: $secondary-color;
+  animation: enter .4s ease-out;
+  will-change: opacity, transform;
 
   @media (max-width: $tablet) {
     margin: 66px 0 16px;
+  }
+}
+
+:global(.transition-enter) .root {
+  animation: enter .4s ease-out;
+}
+
+:global(.transition-leave) .root {
+  animation: leave .2s ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leave {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(1rem);
   }
 }

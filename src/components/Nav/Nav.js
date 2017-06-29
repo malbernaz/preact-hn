@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 import { h, Component } from "preact";
 
 import withStyles from "../../lib/withStyles";
@@ -11,8 +12,16 @@ function isActive(props) {
   return props.routes[props.children].test(props.currentRoute);
 }
 
+function getDelay() {
+  if (!_CLIENT_) {
+    return 0;
+  }
+
+  return matchMedia("(max-width: 600px)").matches ? 300 : 0;
+}
+
 const NavLink = props =>
-  <Link class={isActive(props) ? s.linkActive : s.link} {...props}>
+  <Link class={isActive(props) ? s.linkActive : s.link} delay={getDelay()} {...props}>
     {props.children}
   </Link>;
 
@@ -75,7 +84,7 @@ export default class extends Component {
   render({ currentRoute, navOpened, toggle, routes }) {
     return (
       <div class={s.root}>
-        <div
+        <a
           class={!navOpened ? s.shadow : s.shadowShown}
           ref={c => {
             this.shadow = c;
@@ -94,16 +103,16 @@ export default class extends Component {
           <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/">
             top
           </NavLink>
-          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/new">
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/new/">
             new
           </NavLink>
-          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/show">
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/show/">
             show
           </NavLink>
-          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/ask">
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/ask/">
             ask
           </NavLink>
-          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/job">
+          <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/job/">
             jobs
           </NavLink>
           <div

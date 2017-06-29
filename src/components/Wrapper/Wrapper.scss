@@ -1,12 +1,14 @@
-.root {
-  width: auto;
-  margin: 0 auto;
-  height: 100%;
-  max-width: 800px;
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   padding-top: 60px;
 }
 
-.root h1 {
-  text-align: center;
-  margin-top: 0;
+.root {
+  margin: 0 auto;
+  width: auto;
+  min-height: 100vh;
+  max-width: 800px;
 }
