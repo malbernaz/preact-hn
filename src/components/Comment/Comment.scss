@@ -1,0 +1,71 @@
+@import '../../styles/variables.scss';
+
+.root {
+  border-bottom: 1px solid $shadow-color;
+}
+
+.content {
+  background: $secondary-color;
+  padding: 1rem 0;
+}
+
+.root:last-child {
+  border-bottom: none;
+}
+
+.info {
+  color: $text-color-lighter;
+  margin-bottom: 1rem;
+}
+
+.info a {
+  color: $text-color-lighter;
+}
+
+.text {
+  word-wrap: break-word;
+}
+
+.text p {
+  margin: .5rem 0 0;
+}
+
+.text code {
+  white-space: pre-wrap;
+}
+
+.comments {
+  margin: .5rem 0 .5rem 1rem;
+}
+
+.toggleReplies {
+  display: flex;
+  align-items: center;
+  padding: .5rem;
+  font-size: .8rem;
+  cursor: pointer;
+}
+
+.toggleReplies.toggleRepliesCollapsed {
+  background: lighten($primary-color, 30%);
+  color: $text-color;
+}
+
+.toggleReplies.toggleRepliesCollapsed::after {
+  display: none;
+}
+
+.toggleReplies::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: $shadow-color;
+  flex-grow: 1;
+  margin-left: .5rem;
+}
+
+@media (max-width: $mobile-s) {
+  .comments {
+    margin: .5rem 0 .5rem .5rem;
+  }
+}

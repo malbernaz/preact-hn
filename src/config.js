@@ -24,11 +24,11 @@ export default {
       },
       {
         property: "og:image:width",
-        content: "279"
+        content: "280"
       },
       {
         property: "og:image:height",
-        content: "279"
+        content: "280"
       },
       {
         property: "og:title",

@@ -1,9 +1,5 @@
 @import "../../styles/variables.scss";
 
-.root {
-  color: $secondary-color;
-}
-
 .nav {
   position: relative;
   display: flex;
@@ -14,7 +10,7 @@
   height: 60px;
   line-height: 60px;
   padding: 0 1.25rem;
-  color: $secondary-color;
+  color: $text-color;
   display: block;
   text-decoration: none;
   transition: background-color .2s ease;
@@ -94,7 +90,8 @@
     line-height: 50px;
   }
 
-  .link:hover, .linkActive {
+  .link:hover,
+  .linkActive {
     background: darken($secondary-color, 5%);
   }
 }

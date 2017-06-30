@@ -7,12 +7,12 @@
 .header {
   padding: 2rem;
   background: $secondary-color;
+  box-shadow: 0 .1rem .5rem $shadow-color;
 }
 
 .header h1 {
   margin: 0 0 1rem;
   font-size: 1.5em;
-  color: $heading-color;
 }
 
 .info {
@@ -20,5 +20,48 @@
 }
 
 .text {
+  margin: 1rem 0 0;
+}
+
+.text p {
   margin-bottom: 0;
+}
+
+.comments {
+  margin-top: 2rem;
+  padding: .5rem 1.5rem;
+  background: $secondary-color;
+}
+
+.commentsCount {
+  display: flex;
+  align-items: center;
+  color: $heading-color;
+  font-weight: bold;
+}
+
+.commentsCount p {
+  margin: 1rem 0;
+}
+
+.commentsCountCoomentsLoaded {
+  border-bottom: 1px solid $shadow-color;
+}
+
+.commentsCount span {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  margin-left: .5rem;
+  transform: scale(.6);
+}
+
+@media (max-width: $tablet) {
+  .root {
+    margin-bottom: 1rem;
+  }
+
+  .comments {
+    margin-top: 1rem;
+  }
 }

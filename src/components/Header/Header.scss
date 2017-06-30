@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .root {
   position: fixed;
@@ -7,7 +7,7 @@
   width: 100%;
   background: $primary-color;
   box-shadow: 0 .1rem .5rem $shadow-color;
-  z-index: 2;
+  z-index: 3;
 }
 
 .wrapper {
@@ -40,6 +40,10 @@
   height: 30px;
 }
 
+.logo svg path {
+  fill: $text-color;
+}
+
 .logo h1 {
   margin: 0;
   height: 0;
@@ -55,7 +59,7 @@
 
 .aboutLink svg {
   height: 1.5rem;
-  fill: $secondary-color;
+  fill: $text-color;
 }
 
 .aboutLink span {
@@ -81,7 +85,7 @@
 
   .logo h1 {
     font-size: 1rem;
-    color: $secondary-color;
+    color: $text-color;
     margin: 0 0 0 .7rem;
     width: auto;
     height: auto;
@@ -101,6 +105,6 @@
 
   .menu svg {
     height: 30px;
-    fill: $secondary-color;
+    fill: $text-color;
   }
 }

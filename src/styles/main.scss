@@ -16,7 +16,7 @@ body {
 
 @media (max-width: $tablet) {
   body {
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 
@@ -40,6 +40,16 @@ input {
 
 input:focus {
   outline: none;
+}
+
+a {
+  color: darken($primary-color, 12%);
+}
+
+h1,
+h2,
+h3 {
+  color: $heading-color;
 }
 
 :global(.route-transition-container) {

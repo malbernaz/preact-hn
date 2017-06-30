@@ -27,6 +27,19 @@ export function fetchStories(type, page) {
   };
 }
 
+export async function fetchComments(ids) {
+  const items = await fetchItems(ids);
+
+  for (let i in items) {
+    if (items[i].kids && items[i].kids.length) {
+      const kids = await fetchComments(items[i].kids);
+      items[i].kids = kids;
+    }
+  }
+
+  return items;
+}
+
 export function watchList(type, page) {
   return HNWatch(type, fetchStories(type, page));
 }

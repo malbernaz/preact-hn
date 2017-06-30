@@ -8,7 +8,7 @@
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  border: 3px solid $primary-color;
+  border: 3px solid darken($primary-color, 10%);
   border-bottom-color: transparent;
   animation: spin 1.5s linear infinite;
   will-change: transform;

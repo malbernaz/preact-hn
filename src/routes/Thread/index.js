@@ -10,7 +10,7 @@ export default {
     const item = await fetchItem(id);
 
     return {
-      title: "THREAD",
+      title: item.title,
       component: <Thread item={item} />
     };
   }

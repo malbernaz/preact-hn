@@ -1,10 +1,12 @@
 @import "../../styles/variables.scss";
 
 .root {
+  position: relative;
   margin: 82px 0 32px;
   background: $secondary-color;
   animation: enter .4s ease-out;
   will-change: opacity, transform;
+  z-index: 1;
 
   @media (max-width: $tablet) {
     margin: 66px 0 16px;

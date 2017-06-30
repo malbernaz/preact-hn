@@ -12,3 +12,33 @@
   min-height: 100vh;
   max-width: 800px;
 }
+
+:global(.transition-enter) .root {
+  animation: enter .4s ease-in;
+  animation-delay: .2s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+:global(.transition-leave) .root {
+  animation: leave .2s ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes enter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes leave {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

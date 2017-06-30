@@ -31,7 +31,7 @@ export default {
     const component = (
       <Root page={route.page} type={route.type} routes={routes} currentRoute={url}>
         <TransitionGroup component="div" class="route-transition-container">
-          <AnimatedRoute timeout={400} key={url} />
+          <AnimatedRoute timeout={600} key={url} />
         </TransitionGroup>
       </Root>
     );

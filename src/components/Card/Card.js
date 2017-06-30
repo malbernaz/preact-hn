@@ -25,9 +25,14 @@ export default withStyles(s)(p =>
           </h2>
         </Link>
       </div>
-      <div class={s.row}>
-        by <a>{p.by}</a> {timeago(p.time)} ago | <a>{p.kids ? p.descendants : "0"} comments</a>
-      </div>
+      {p.type !== "job"
+        ? <div class={s.row}>
+            by <Link to={`/user/${p.by}`}>{p.by}</Link> {timeago(p.time)} ago |{" "}
+            <Link to={`/thread/${p.id}`}>{p.kids ? p.descendants : "0"} comments</Link>
+          </div>
+        : <div class={s.row}>
+            {timeago(p.time)} ago
+          </div>}
     </div>
   </div>
 );
