@@ -1,45 +1,78 @@
 /* eslint-disable react/jsx-key */
+
 import { h, Component } from "preact";
 
 import withStyles from "../../lib/withStyles";
-import timeago from "../../lib/timeago";
+import { timeago, pluralize } from "../../lib/util";
+import { connect } from "../../lib/unistore";
 
 import Link from "../Link";
 
 import s from "./Comment.scss";
 
-@withStyles(s)
 class Comment extends Component {
-  state = { repliesVisible: true };
+  state = { repliesVisible: false };
+
+  componentDidMount() {
+    const { item } = this.props;
+    if (item && item.text) this.hijackLinks();
+  }
+
+  componentDidUpdate() {
+    const { item } = this.props;
+    if (item && item.text) this.hijackLinks();
+  }
+
+  hijackLinks = () => {
+    const linkTags = this.text.querySelectorAll("a");
+    Array.prototype.slice.call(linkTags).forEach(a => {
+      a.rel = "noreferrer noopener nofollow";
+      a.target = "_blank";
+    });
+  };
 
   toggleReplies = () => {
     this.setState({ repliesVisible: !this.state.repliesVisible });
   };
 
-  render({ item: i }, { repliesVisible }) {
-    return (
-      <div class={s.root}>
-        <div class={s.content}>
-          <div class={s.info}>
-            by <Link to={`/user/${i.by}`}>{i.by}</Link>
-            {` ${timeago(i.time)} ago`}
+  render({ id, item, items }, { repliesVisible }) {
+    const replies =
+      item && item.kids
+        ? item.kids.map(id => items[id]).filter(item => item && item.text && item.by)
+        : [];
+    return item
+      ? <div class={s.root}>
+          <div class={s.content}>
+            <div class={s.info}>
+              by <Link to={`/user/${item.by}`}>{item.by}</Link>
+              {` ${timeago(item.time)} ago`}
+            </div>
+            <div
+              class={s.text}
+              ref={c => {
+                this.text = c;
+              }}
+              dangerouslySetInnerHTML={{ __html: item.text }}
+            />
           </div>
-          <div class={s.text} dangerouslySetInnerHTML={{ __html: i.text }} />
+          {!!replies.length && [
+            <a
+              onClick={this.toggleReplies}
+              class={`${s.toggleReplies} ${!repliesVisible ? s.toggleRepliesCollapsed : ""}`}
+            >
+              {repliesVisible ? "[-]" : `[+] ${pluralize(replies.length, " comment")} hidden`}
+            </a>,
+            <div class={s.comments} style={{ display: !repliesVisible ? "none" : "" }}>
+              {replies.map(({ id }) => <WrappedComment key={id} id={id} />)}
+            </div>
+          ]}
         </div>
-        {i.kids && [
-          <a
-            onClick={this.toggleReplies}
-            class={`${s.toggleReplies} ${!repliesVisible ? s.toggleRepliesCollapsed : ""}`}
-          >
-            {repliesVisible ? "[-]" : `[+] ${i.kids.length} replies collapsed`}
-          </a>,
-          <div class={s.comments} style={{ display: !repliesVisible ? "none" : "" }}>
-            {i.kids.filter(c => c.text !== undefined).map(c => <Comment key={c.id} item={c} />)}
-          </div>
-        ]}
-      </div>
-    );
+      : null;
   }
 }
 
-export default Comment;
+const mapToProps = ({ items }, { id }) => ({ item: items[id], items });
+
+const WrappedComment = withStyles(s)(connect(mapToProps)(Comment));
+
+export default WrappedComment;

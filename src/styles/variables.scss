@@ -1,11 +1,12 @@
 // Colors
 
 $primary-color: #ffa52a;
+$primary-color-darker: darken($primary-color, 15%);
 $secondary-color: #ffffff;
 $text-color: #222222;
-$text-color-lighter: #9f9f9f;
+$text-color-lighter: #949494;
 $heading-color: #555555;
-$shadow-color: rgba(0, 0, 0, .1);
+$shadow-color: rgba(0, 0, 0, .07);
 
 // Fonts
 

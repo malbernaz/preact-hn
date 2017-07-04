@@ -9,7 +9,10 @@ export default ({ chunks, vendor, component, manifest, script, style, title, ini
     <head>
       <meta charSet="utf-8" />
 
-      <title>{config.head.title}{title && ` | ${title}`}</title>
+      <title>
+        {config.head.title}
+        {title && ` | ${title}`}
+      </title>
 
       <meta name="description" content={config.head.description} />
 
@@ -23,7 +26,9 @@ export default ({ chunks, vendor, component, manifest, script, style, title, ini
 
       {chunks.map(c => <link rel="preload" as="script" href={`/${c}`} />)}
 
-      <style id="css">{style}</style>
+      <style id="css">
+        {style}
+      </style>
     </head>
     <body>
       <main dangerouslySetInnerHTML={{ __html: component }} />

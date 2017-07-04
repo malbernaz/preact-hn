@@ -4,8 +4,8 @@ import Router from "universal-router";
 import { updateTitle } from "./lib/updateTag";
 import history from "./lib/history";
 import Provider from "./lib/ContextProvider";
+import UseScroll from "./lib/useScroll";
 import registerServiceWorker from "./sw-register";
-import UseScroll from "./lib/middleware/useScroll";
 import store from "./store";
 
 let CURRENT_LOCATION = history.location;
@@ -17,12 +17,11 @@ const scroll = new UseScroll(CURRENT_LOCATION);
 
 const routerMiddleware = {
   preMiddleware() {
-    scroll.storeScroll(history);
+    return scroll.storeScroll(history);
   },
   postMiddleware({ title }) {
-    scroll.restoreScroll(history.location);
-
     updateTitle(title);
+    scroll.restoreScroll(history.location);
   }
 };
 

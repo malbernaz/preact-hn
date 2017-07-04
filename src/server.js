@@ -62,7 +62,7 @@ app.get("*", async (req, res, next) => {
 
     const context = { insertCss: (...s) => s.forEach(style => css.push(style._getCss())), store };
 
-    const route = await router.resolve({ path: req.path, store });
+    const route = await router.resolve({ path: req.path, store, res });
 
     const component = render(
       <Provider context={context}>

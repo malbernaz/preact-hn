@@ -3,6 +3,7 @@ import { h, Component } from "preact";
 import withStyles from "../../lib/withStyles";
 import { connect } from "../../lib/unistore";
 import history from "../../lib/history";
+import { itemsPerPage } from "../../config";
 
 import s from "./Pagination.scss";
 
@@ -17,11 +18,14 @@ export default class extends Component {
     }
   }
 
+  shouldComponentUpdate({ type, page, ids }) {
+    return this.props.type !== type || this.props.page !== page || this.props.ids !== ids;
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.type && nextProps.type) return;
-
     if (nextProps.type) {
-      this.base.classList.remove(s.leave);
+      this.base.classList.remove(s.leave, s.hidden);
       this.base.classList.add(s.enter);
     } else {
       this.base.classList.remove(s.enter);
@@ -45,7 +49,10 @@ export default class extends Component {
   render({ page, type, ids = [0] }) {
     const url = type === "top" ? "/" : `/${type}/`;
     const pageNumber = parseInt(page, 10);
-    const pages = ids.length % 30 !== 0 ? parseInt(ids.length / 30, 10) + 1 : ids.length / 30;
+    const pages =
+      ids.length % itemsPerPage !== 0
+        ? parseInt(ids.length / itemsPerPage, 10) + 1
+        : ids.length / itemsPerPage;
     const prev = pageNumber - 1 === 1 ? "" : pageNumber - 1;
     const next = pageNumber + 1;
 

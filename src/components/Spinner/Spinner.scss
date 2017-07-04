@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .root {
   position: absolute;
@@ -8,7 +8,7 @@
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  border: 3px solid darken($primary-color, 10%);
+  border: 3px solid $primary-color-darker;
   border-bottom-color: transparent;
   animation: spin 1.5s linear infinite;
   will-change: transform;

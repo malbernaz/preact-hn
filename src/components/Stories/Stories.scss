@@ -13,6 +13,11 @@
   }
 }
 
+.spinnerContainer {
+  position: relative;
+  min-height: calc(100vh - 60px);
+}
+
 :global(.transition-enter) .root {
   animation: enter .4s ease-out;
 }

@@ -1,4 +1,4 @@
-export default function timeago(time) {
+export function timeago(time) {
   const between = Date.now() / 1000 - Number(time);
   if (between < 3600) {
     return pluralize(~~(between / 60), " minute");
@@ -9,9 +9,9 @@ export default function timeago(time) {
   }
 }
 
-function pluralize(time, label) {
-  if (time === 1) {
-    return time + label;
+export function pluralize(number, label) {
+  if (number === 1) {
+    return number + label;
   }
-  return time + label + "s";
+  return number + label + "s";
 }

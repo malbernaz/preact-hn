@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .root {
   border-bottom: 1px solid $shadow-color;
@@ -20,6 +20,10 @@
 
 .info a {
   color: $text-color-lighter;
+}
+
+.info a:hover {
+  color: $primary-color-darker;
 }
 
 .text {

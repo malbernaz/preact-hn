@@ -10,6 +10,7 @@ import Root from "../components/Root";
 import storyRoutes from "./createStoryTypes";
 import About from "./About";
 import Thread from "./Thread";
+import User from "./User";
 import NotFound from "./NotFound";
 
 export default {
@@ -20,7 +21,10 @@ export default {
 
     const route = await next();
 
-    if (postMiddleware) postMiddleware(route);
+    const hooks = [];
+    if (postMiddleware) {
+      hooks.push(() => postMiddleware(route));
+    }
 
     const routes = children
       .filter(c => !!c.title)
@@ -31,7 +35,7 @@ export default {
     const component = (
       <Root page={route.page} type={route.type} routes={routes} currentRoute={url}>
         <TransitionGroup component="div" class="route-transition-container">
-          <AnimatedRoute timeout={600} key={url} />
+          <AnimatedRoute timeout={600} hooks={hooks} key={url} />
         </TransitionGroup>
       </Root>
     );
@@ -39,5 +43,5 @@ export default {
     return { ...route, component };
   },
 
-  children: [...storyRoutes, About, Thread, NotFound]
+  children: [...storyRoutes, About, Thread, User, NotFound]
 };

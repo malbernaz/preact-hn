@@ -1,3 +1,44 @@
+@import "../../styles/variables.scss";
+
 .root {
-  color: darkorchid;
+  height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem;
+}
+
+.root svg {
+  fill: $text-color;
+  height: 10rem;
+  margin: 1rem 0;
+}
+
+.root span {
+  margin: 1.7em 0;
+  font-weight: bold;
+}
+
+.root code {
+  background: $secondary-color;
+  padding: .5rem;
+  border: 1px solid $shadow-color;
+}
+
+.root h1,
+.root h2 {
+  margin: 0;
+  color: $text-color;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.root h1 {
+  font-size: 4em;
+}
+
+.root h2 {
+  font-size: 3em;
 }

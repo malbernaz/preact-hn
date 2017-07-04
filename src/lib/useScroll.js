@@ -2,6 +2,7 @@ export default class UseScroll {
   constructor(location) {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
+      this.scrollRestorationSupported = true;
     }
 
     this.currentLocation = location;
@@ -9,6 +10,8 @@ export default class UseScroll {
   }
 
   storeScroll(history) {
+    if (!this.scrollRestorationSupported) return;
+
     const { location } = history;
 
     this.scrollPositionsHistory[this.currentLocation.key] = {
@@ -24,6 +27,8 @@ export default class UseScroll {
   }
 
   restoreScroll(location) {
+    if (!this.scrollRestorationSupported) return;
+
     const pos = this.scrollPositionsHistory[location.key];
 
     let scrollX = 0;
@@ -44,6 +49,6 @@ export default class UseScroll {
       }
     }
 
-    setTimeout(() => window.scrollTo(scrollX, scrollY), 0);
+    window.scrollTo(scrollX, scrollY);
   }
 }

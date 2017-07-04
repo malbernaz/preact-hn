@@ -1,12 +1,12 @@
 {
   "env": {
     "node": true,
-    "browser": true
+    "browser": true,
+    "es6": true
   },
   "globals": {
     "_DEV_": true,
-    "_CLIENT_": true,
-    "Promise": true
+    "_CLIENT_": true
   },
   "extends": [
     "eslint:recommended",

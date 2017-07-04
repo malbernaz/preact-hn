@@ -1,7 +1,7 @@
 import { h } from "preact";
 
 import withStyles from "../../lib/withStyles";
-import timeago from "../../lib/timeago";
+import { timeago, pluralize } from "../../lib/util";
 
 import Link from "../Link.js";
 
@@ -25,14 +25,18 @@ export default withStyles(s)(p =>
           </h2>
         </Link>
       </div>
-      {p.type !== "job"
-        ? <div class={s.row}>
-            by <Link to={`/user/${p.by}`}>{p.by}</Link> {timeago(p.time)} ago |{" "}
-            <Link to={`/thread/${p.id}`}>{p.kids ? p.descendants : "0"} comments</Link>
-          </div>
-        : <div class={s.row}>
-            {timeago(p.time)} ago
-          </div>}
+      <div class={s.row}>
+        {p.type !== "job"
+          ? <div class={s.info}>
+              by <Link to={`/user/${p.by}`}>{p.by}</Link> {timeago(p.time)} ago |{" "}
+              <Link to={`/thread/${p.id}`}>
+                {pluralize(p.kids ? p.descendants : 0, " comment")}
+              </Link>
+            </div>
+          : <div class={s.info}>
+              {timeago(p.time)} ago
+            </div>}
+      </div>
     </div>
   </div>
 );

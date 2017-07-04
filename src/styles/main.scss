@@ -1,5 +1,5 @@
-@import '~normalize.css';
-@import './variables.scss';
+@import "~normalize.css";
+@import "./variables.scss";
 
 * {
   box-sizing: border-box;
@@ -43,7 +43,7 @@ input:focus {
 }
 
 a {
-  color: darken($primary-color, 12%);
+  color: $primary-color-darker;
 }
 
 h1,

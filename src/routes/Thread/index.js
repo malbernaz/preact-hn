@@ -4,14 +4,17 @@ import { fetchItem } from "../../actions";
 
 export default {
   path: "/thread/:id(\\d+)",
-  async action(ctx, { id }) {
+  async action({ url }, { id }) {
     const { default: Thread } = await import("./Thread" /* webpackChunkName: "thread" */);
+    const {
+      default: NotFound
+    } = await import("../NotFound/NotFound" /* webpackChunkName: "notfound" */);
 
     const item = await fetchItem(id);
 
     return {
-      title: item.title,
-      component: <Thread item={item} />
+      title: item ? item.title : "not found",
+      component: item ? <Thread item={item} /> : <NotFound url={url} />
     };
   }
 };

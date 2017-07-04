@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+
+.root {
+  margin-bottom: 2rem;
+}
+
+.header {
+  padding: 2rem;
+  background: $secondary-color;
+  box-shadow: 0 .1rem .5rem $shadow-color;
+}
+
+.header h1 {
+  margin: 0 0 1rem;
+  font-size: 1.5em;
+}
+
+.about {
+  margin: 1rem 0;
+}
+
+.about p {
+  margin-bottom: 0;
+}
+
+.links a {
+  color: $text-color;
+}
+
+.links a:hover {
+  color: $primary-color-darker;
+}

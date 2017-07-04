@@ -2,8 +2,10 @@ import createStore from "./lib/unistore";
 
 const initialState = _CLIENT_
   ? window.__INITIAL_STATE__
-  : ["top", "new", "show", "ask", "job"].reduce((acc, t) => ({ ...acc, [t]: {} }), {
+  : ["top", "new", "show", "ask", "job"].reduce((acc, t) => ({ ...acc, [t]: { ids: [] } }), {
       currentStory: "top",
+      items: {},
+      users: {},
       itemsFetched: false
     });
 

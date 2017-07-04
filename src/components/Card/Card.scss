@@ -13,12 +13,12 @@
 }
 
 .root a {
-  color: $text-color;
-  text-decoration: none;
+  color: $text-color-lighter;
 }
 
 .root a:not(.title):hover {
   text-decoration: underline;
+  color: $primary-color-darker;
 }
 
 .numbers {
@@ -44,9 +44,17 @@
   color: lighten($text-color, 10%);
 }
 
+.info {
+  color: $text-color-lighter;
+}
+
 .row {
   padding: .3rem 0;
   line-height: 1.3rem;
+}
+
+.title {
+  text-decoration: none;
 }
 
 .title h2 {

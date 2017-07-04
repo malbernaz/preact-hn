@@ -4,20 +4,12 @@ import Firebase from "firebase/app";
 
 import "firebase/database";
 
-Firebase.initializeApp({
-  databaseURL: "https://hacker-news.firebaseio.com"
-});
+const URL = "https://hacker-news.firebaseio.com";
+const VERSION = "/v0";
 
-const api = Firebase.database().ref("/v0");
+Firebase.initializeApp({ databaseURL: URL });
 
-if (api.onServer) {
-  warmCache();
-}
-
-function warmCache() {
-  fetchItems((api.cachedIds.top || []).slice(0, 30));
-  setTimeout(warmCache, 1000 * 60 * 15);
-}
+const api = Firebase.database().ref(VERSION);
 
 function fetchAPI(child) {
   const cache = api.cachedItems;
@@ -38,6 +30,8 @@ function fetchAPI(child) {
     });
   }
 }
+
+export const BASE_URL = URL + VERSION;
 
 export function fetchIdsByType(type) {
   return api.cachedIds && api.cachedIds[type]

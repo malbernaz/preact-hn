@@ -12,14 +12,14 @@ import s from "./Stories.scss";
 @withStyles(s)
 export default class extends Component {
   async componentDidMount() {
-    const { page, type } = this.props;
-    this.unwatchList = watchList(type, page);
+    const { offset, type, itemsPerPage } = this.props;
+    this.unwatchList = watchList(type, offset, itemsPerPage);
   }
 
-  componentWillReceiveProps({ page, type }) {
-    if (page !== this.props.page) {
+  componentWillReceiveProps({ offset, type, itemsPerPage }) {
+    if (offset !== this.props.offset) {
       this.unwatchList();
-      this.unwatchList = watchList(type, page);
+      this.unwatchList = watchList(type, offset, itemsPerPage);
     }
   }
 
@@ -27,17 +27,19 @@ export default class extends Component {
     if (this.unwatchList) this.unwatchList();
   }
 
-  render({ page, itemsFetched, [page]: items = [] }) {
+  render({ offset, itemsPerPage, itemsFetched, items = [] }) {
     return (
       <Wrapper>
         {!itemsFetched && !items.length
-          ? <Spinner />
-          : <div id="animate" class={s.root}>
+          ? <div class={s.spinnerContainer}>
+              <Spinner />
+            </div>
+          : <div class={s.root}>
               {items.map((item, index) =>
                 <Card
                   {...item}
                   key={`card-${item.id}`}
-                  index={page * 30 + parseInt(index, 10) + 1 - 30}
+                  index={offset + parseInt(index, 10) + 1 - itemsPerPage}
                 />
               )}
             </div>}

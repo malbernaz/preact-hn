@@ -48,7 +48,7 @@ export function connect(mapToProps) {
       };
       getProps() {
         let state = (this.context.store && this.context.store.getState()) || {};
-        return mapToProps(state);
+        return mapToProps(state, this.props);
       }
       componentWillMount() {
         this.context.store.subscribe(this.update);
