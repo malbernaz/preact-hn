@@ -6,3 +6,7 @@ A live version is available at https://preact-hn.now.sh
 
 <br />
 <img src=https://raw.githubusercontent.com/malbernaz/preact-hn/master/screenshot.png alt=screenshot />
+
+## License
+
+MIT
