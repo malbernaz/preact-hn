@@ -10,11 +10,11 @@
     "build:dev": "npm run cleandist && npm run build:dev:client && npm run build:dev:server",
     "build:prod:client": "webpack --env prod:client",
     "build:prod:server": "webpack --env prod:server",
-    "build:prod": "npm run cleandist && npm run build:prod:client && npm run build:prod:server",
+    "build": "npm run cleandist && npm run build:prod:client && npm run build:prod:server",
     "cleandist": "rimraf dist",
     "dev": "npm run build:dev && concurrently --raw --kill-others 'npm run watch:server' 'npm run nodemon' 'npm run watch:client'",
     "nodemon": "nodemon --watch dist --ignore dist/public/ --delay 1 dist",
-    "start": "npm run build:prod && node dist",
+    "start": "node dist",
     "watch:client": "webpack-dev-server --env dev:client",
     "watch:server": "webpack --env dev:server --watch"
   },
