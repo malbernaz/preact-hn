@@ -31,6 +31,10 @@ function insertCss(...styles) {
   return () => removeCss.forEach(f => f());
 }
 
+function redirect(to) {
+  history.replace(to);
+}
+
 const context = { insertCss, store };
 
 const mnt = document.querySelector("main");
@@ -50,9 +54,15 @@ async function bootstrap(location) {
 
   const router = new Router(routes);
 
-  const { pathname } = location;
+  const { pathname, search } = location;
 
-  const route = await router.resolve({ path: pathname, store, ...routerMiddleware });
+  const route = await router.resolve({
+    path: pathname,
+    store,
+    redirect,
+    search,
+    ...routerMiddleware
+  });
 
   const component = (
     <Provider context={context}>

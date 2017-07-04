@@ -28,13 +28,22 @@ const chunks = Object.keys(assets).map(c => assets[c].js);
 
 const router = new Router(routes);
 
+function redirect(to, status) {
+  const error = new Error(`Redirecting to "${to}"...`);
+  error.status = status;
+  error.path = to;
+  throw error;
+}
+
 app.get("*", async (req, res, next) => {
   try {
     const css = [];
 
     const context = { insertCss: (...s) => s.forEach(style => css.push(style._getCss())), store };
 
-    const route = await router.resolve({ path: req.path, store, res });
+    const { search } = req._parsedOriginalUrl;
+
+    const route = await router.resolve({ path: req.path, store, redirect, search });
 
     const component = render(
       <Provider context={context}>
@@ -55,6 +64,11 @@ app.get("*", async (req, res, next) => {
 
     res.send(`<!DOCTYPE html>${render(<Html {...data} />)}`);
   } catch (err) {
+    if (err.status === 404) {
+      res.status(err.status);
+      res.redirect(err.path || "/");
+      return;
+    }
     next(err);
   }
 });

@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdir } from "fs";
 
 export default ({ DEV }) => ({ assets, assetsByChunkName, hash }, { compiler }) => {
   const formatedAssets = Object.keys(assetsByChunkName).reduce((obj, key) => {
@@ -14,8 +14,16 @@ export default ({ DEV }) => ({ assets, assetsByChunkName, hash }, { compiler }) 
   const distDir = resolve(__dirname, "..", "dist");
 
   // Aditional Assets File for Server comsumption
-  mkdirSync(distDir);
-  writeFileSync(`${distDir}/assets.js`, `module.exports=${JSON.stringify(formatedAssets)}`);
+  const generateFile = () =>
+    writeFileSync(`${distDir}/assets.js`, `module.exports=${JSON.stringify(formatedAssets)}`);
+
+  try {
+    generateFile();
+  } catch (e) {
+    if (e.code === "ENOENT") {
+      mkdir(distDir, generateFile);
+    }
+  }
 
   const { publicPath } = compiler.options.output;
 

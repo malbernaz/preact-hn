@@ -65,6 +65,7 @@
     "preact": "^8.1.0",
     "preact-render-to-string": "^3.6.3",
     "preact-transition-group": "^1.1.1",
+    "query-string": "^4.3.4",
     "serve-favicon": "^2.4.3",
     "universal-router": "^3.2.0"
   }

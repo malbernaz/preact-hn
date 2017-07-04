@@ -1,1 +1,32 @@
+@import "../../styles/variables.scss";
 
+.root {
+  padding: 2rem;
+  background: $secondary-color;
+  box-shadow: 0 .1rem .5rem $shadow-color;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.root h1 {
+  margin: 0 0 1rem;
+  font-size: 1.5em;
+}
+
+.root svg {
+  display: inline;
+  height: 4rem;
+  margin-bottom: 2rem;
+  fill: $text-color;
+}
+
+.root p {
+  font-size: 1.05em;
+}
+
+.root p:last-child {
+  margin-bottom: 0;
+}

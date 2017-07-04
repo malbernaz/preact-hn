@@ -21,7 +21,7 @@ export default ({ DEV, baseConfig }) => ({
   output: {
     ...baseConfig.output,
     filename: DEV ? "[name].js" : "[name].[hash].js",
-    chunkFilename: DEV ? "[name].[id].js" : "[name].[id].[hash].js",
+    chunkFilename: DEV ? "[name].js" : "[name].[hash].js",
     publicPath: "/"
   },
   module: {

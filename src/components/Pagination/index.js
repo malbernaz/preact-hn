@@ -49,7 +49,7 @@ export default class extends Component {
   render({ page, type, ids = [0] }) {
     const url = type === "top" ? "/" : `/${type}/`;
     const pageNumber = parseInt(page, 10);
-    const pages =
+    const pageNum =
       ids.length % itemsPerPage !== 0
         ? parseInt(ids.length / itemsPerPage, 10) + 1
         : ids.length / itemsPerPage;
@@ -67,11 +67,11 @@ export default class extends Component {
           ‹ prev
         </a>
         <span class={s.count}>
-          {page || "1"}/{pages}
+          {page || "1"}/{pageNum || "1"}
         </span>
         <a
           href={`${url}${next}`}
-          class={parseInt(page, 10) === pages && s.disabled}
+          class={parseInt(page, 10) === pageNum && s.disabled}
           data-page={next}
           onClick={this.handleClick}
         >
