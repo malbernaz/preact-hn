@@ -47,10 +47,6 @@ export function fetchItems(ids) {
   return Promise.all(ids.map(id => fetchItem(id)));
 }
 
-export function fetchUser(id) {
-  return fetchAPI(`user/${id}`);
-}
-
 export function watchList(type, cb) {
   let first = true;
   const ref = api.child(`${type}stories`);

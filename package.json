@@ -1,7 +1,7 @@
 {
-  "name": "isomorphic-preact",
+  "name": "preact-hn",
   "version": "1.0.0",
-  "description": "isomorphic architecture preact example",
+  "description": "A hacker news clone built with preact",
   "author": "malbernaz <albernazmiguel@gmail.com>",
   "license": "MIT",
   "scripts": {

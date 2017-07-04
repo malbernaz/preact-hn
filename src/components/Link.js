@@ -21,7 +21,7 @@ export default class extends Component {
   render({ to, children, blank, ...props }) {
     const blankProps = blank
       ? {
-          rel: "noreferrer noopener",
+          rel: "noreferrer noopener nofollow",
           target: "_blank"
         }
       : {};

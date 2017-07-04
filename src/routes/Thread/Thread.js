@@ -38,10 +38,12 @@ export default class extends Component {
             {item.url
               ? <Link class={s.title} to={item.url} blank>
                   <h1>
+                    {item.type === "job" && "Job: "}
                     {item.title}
                   </h1>
                 </Link>
               : <h1>
+                  {item.type === "job" && "Job: "}
                   {item.title}
                 </h1>}
             <div class={s.info}>
@@ -57,26 +59,27 @@ export default class extends Component {
                 dangerouslySetInnerHTML={{ __html: item.text }}
               />}
           </div>
-          <div class={s.commentsContainer}>
-            <div
-              class={`${s.commentsCount} ${commentsFetched ? s.commentsCountCommentsLoaded : ""}`}
-            >
-              <p>
-                {item.descendants
-                  ? `${pluralize(item.descendants, " comment")}`
-                  : "no comments yet"}
-              </p>
-              {!commentsFetched &&
-                !!item.descendants &&
-                <span>
-                  <Spinner />
-                </span>}
-            </div>
-            {!!commentsFetched &&
-              <div class={s.comments}>
-                {item.kids.map(id => <Comment key={id} id={id} />)}
-              </div>}
-          </div>
+          {item.type !== "job" &&
+            <div class={s.commentsContainer}>
+              <div
+                class={`${s.commentsCount} ${commentsFetched ? s.commentsCountCommentsLoaded : ""}`}
+              >
+                <p>
+                  {item.descendants
+                    ? `${pluralize(item.descendants, " comment")}`
+                    : "no comments yet"}
+                </p>
+                {!commentsFetched &&
+                  !!item.descendants &&
+                  <span>
+                    <Spinner />
+                  </span>}
+              </div>
+              {!!commentsFetched &&
+                <div class={s.comments}>
+                  {item.kids.map(id => <Comment key={id} id={id} />)}
+                </div>}
+            </div>}
         </div>
       </Wrapper>
     );

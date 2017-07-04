@@ -1,3 +1,7 @@
-import Spinner from "./Spinner";
+import { h } from "preact";
 
-export default Spinner;
+import withStyles from "../../lib/withStyles";
+
+import s from "./Spinner.scss";
+
+export default withStyles(s)(() => <div class={s.root} />);

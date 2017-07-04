@@ -92,6 +92,6 @@
 
   .link:hover,
   .linkActive {
-    background: lighten($primary-color, 8%);
+    background: darken($secondary-color, 5%);
   }
 }

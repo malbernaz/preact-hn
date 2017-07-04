@@ -16,9 +16,9 @@ export default withStyles(s)(({ user: u }) =>
           User: {u.id}
         </h1>
         <div class={s.info}>
-          Created: {`${timeago(u.created)} ago`}
+          <b>Created:</b> {`${timeago(u.created)} ago`}
           <br />
-          Karma: {u.karma}
+          <b>Karma:</b> {u.karma}
         </div>
         <div class={s.about} dangerouslySetInnerHTML={{ __html: u.about }} />
         <div class={s.links}>
