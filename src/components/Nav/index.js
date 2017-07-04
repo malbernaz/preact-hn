@@ -11,10 +11,7 @@ function isActive(props) {
 }
 
 function getDelay() {
-  if (!_CLIENT_) {
-    return 0;
-  }
-
+  if (!_CLIENT_) return 0;
   return matchMedia("(max-width: 600px)").matches ? 300 : 0;
 }
 
@@ -27,10 +24,20 @@ const NavLink = props =>
 export default class extends Component {
   componentDidMount() {
     this.nav.addEventListener("transitionend", this.toggleBodyScroll, false);
+    [this.nav, this.lever].forEach(el => {
+      el.addEventListener("touchstart", this.onTouchStart, { passive: true });
+      el.addEventListener("touchmove", this.onTouchMove, { passive: true });
+      el.addEventListener("touchend", this.onTouchEnd, { passive: true });
+    });
   }
 
   componentWillUnmount() {
     this.nav.removeEventListener("transitionend", this.toggleBodyScroll, false);
+    [this.nav, this.lever].forEach(el => {
+      el.removeEventListener("touchstart", this.onTouchStart, { passive: true });
+      el.removeEventListener("touchmove", this.onTouchMove, { passive: true });
+      el.removeEventListener("touchend", this.onTouchEnd, { passive: true });
+    });
   }
 
   onTouchStart = event => {
@@ -91,9 +98,6 @@ export default class extends Component {
         />
         <nav
           class={!navOpened ? s.nav : s.navShown}
-          onTouchEnd={this.onTouchEnd}
-          onTouchMove={this.onTouchMove}
-          onTouchStart={this.onTouchStart}
           ref={c => {
             this.nav = c;
           }}
@@ -115,10 +119,10 @@ export default class extends Component {
           </NavLink>
           <div
             class={s.lever}
+            ref={c => {
+              this.lever = c;
+            }}
             onClick={navOpened && toggle}
-            onTouchEnd={this.onTouchEnd}
-            onTouchMove={this.onTouchMove}
-            onTouchStart={this.onTouchStart}
           />
         </nav>
       </div>
