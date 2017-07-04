@@ -46,9 +46,7 @@ self.onfetch = event => {
         caches
           .match(requestUrl, { ignoreSearch: true })
           .then(response => response.text())
-          .then(
-            responseText => new Response(responseText, { headers: { "Content-Type": "text/html" } })
-          )
+          .then(text => new Response(text, { headers: { "Content-Type": "text/html" } }))
       );
     }
 
