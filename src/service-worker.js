@@ -1,6 +1,6 @@
 /* eslint-env worker */
 
-importScripts("assets.js");
+importScripts("/assets.js");
 
 const VERSION = self.staticAssets.hash;
 const STATIC_ASSETS = self.staticAssets.assets;

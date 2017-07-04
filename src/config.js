@@ -41,7 +41,7 @@ export default {
       },
       {
         property: "og:url",
-        content: "malbernaz.me"
+        content: "preact-hn.now.sh"
       }
     ],
     link: [

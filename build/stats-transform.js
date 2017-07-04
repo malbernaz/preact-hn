@@ -1,11 +1,10 @@
 import { resolve } from "path";
-import { writeFileSync, mkdir } from "fs";
+import { writeFileSync, mkdirSync } from "fs";
 
 export default ({ DEV }) => ({ assets, assetsByChunkName, hash }, { compiler }) => {
   const formatedAssets = Object.keys(assetsByChunkName).reduce((obj, key) => {
-    const asset = assetsByChunkName[key] instanceof Array
-      ? assetsByChunkName[key][0]
-      : assetsByChunkName[key];
+    const asset =
+      assetsByChunkName[key] instanceof Array ? assetsByChunkName[key][0] : assetsByChunkName[key];
 
     const ext = asset.match(DEV ? /\.\w{2,4}/ : /\.\w{2,4}$/)[0].replace(/\./, "");
 
@@ -15,16 +14,8 @@ export default ({ DEV }) => ({ assets, assetsByChunkName, hash }, { compiler }) 
   const distDir = resolve(__dirname, "..", "dist");
 
   // Aditional Assets File for Server comsumption
-  const generateFile = () =>
-    writeFileSync(`${distDir}/assets.js`, `module.exports=${JSON.stringify(formatedAssets)}`);
-
-  try {
-    generateFile();
-  } catch (e) {
-    if (e.code === "ENOENT") {
-      mkdir(distDir, generateFile);
-    }
-  }
+  mkdirSync(distDir);
+  writeFileSync(`${distDir}/assets.js`, `module.exports=${JSON.stringify(formatedAssets)}`);
 
   const { publicPath } = compiler.options.output;
 
