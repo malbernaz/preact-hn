@@ -22,7 +22,7 @@ export default class extends Component {
             free.
           </p>
           <p>
-            The app is hosted on{" "}
+            The app repo is hosted on{" "}
             <Link to="https://github.com/malbernaz/preact-hn" blank>
               GitHub
             </Link>. Feel free to make it yours...
