@@ -4,13 +4,13 @@ importScripts("/assets.js");
 
 const VERSION = self.staticAssets.hash;
 const STATIC_ASSETS = self.staticAssets.assets;
-const STATIC_PAGES = ["/", "/new", "/show", "/ask", "/jobs", "/notfound"];
+const PAGES = ["/", "/new", "/show", "/ask", "/jobs", "/notfound"];
 
 self.oninstall = event =>
   event.waitUntil(
     caches
       .open(`static-${VERSION}`)
-      .then(cache => cache.addAll([...STATIC_PAGES, ...STATIC_ASSETS]))
+      .then(cache => cache.addAll([...PAGES, ...STATIC_ASSETS]))
       .then(() => self.skipWaiting())
   );
 
@@ -41,13 +41,8 @@ self.onfetch = event => {
   // Local Requests
   if (location.origin === origin) {
     // Server Rendered Pages
-    if (STATIC_PAGES.some(s => s === pathname)) {
-      return event.respondWith(
-        caches
-          .match(requestUrl, { ignoreSearch: true })
-          .then(response => response.text())
-          .then(text => new Response(text, { headers: { "Content-Type": "text/html" } }))
-      );
+    if (PAGES.some(s => s === pathname)) {
+      return staleWhileRevalidate(event, `static-${VERSION}`);
     }
 
     // Static Assets
@@ -57,8 +52,13 @@ self.onfetch = event => {
   }
 
   // Dynamic Requests
+  return staleWhileRevalidate(event, `dynamic-${VERSION}`);
+};
+
+function staleWhileRevalidate(event, cacheName) {
+  const requestUrl = new URL(event.request.url);
   const fetchedVersion = fetch(requestUrl);
-  const fetchedCopy = fetchedVersion.then(response => response.clone());
+  const fetchedCopy = fetchedVersion.then(res => res.clone());
   const cachedVersion = caches.match(requestUrl);
 
   event.respondWith(
@@ -72,8 +72,8 @@ self.onfetch = event => {
     fetchedCopy
       .then(res => {
         response = res;
-        return caches.open(`dynamic-${VERSION}`);
+        return caches.open(cacheName);
       })
       .then(cache => cache.put(requestUrl, response))
   );
-};
+}
