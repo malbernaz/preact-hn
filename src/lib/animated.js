@@ -2,10 +2,7 @@ import { h, Component } from "preact";
 
 export default Wrapped =>
   class extends Component {
-    static defaultProps = {
-      timeout: 600,
-      hooks: []
-    };
+    static defaultProps = { timeout: 600, hooks: [] };
 
     componentDidMount() {
       const transitionContainer = this.base.querySelector("#transition-element");

@@ -12,32 +12,20 @@ Firebase.initializeApp({ databaseURL: URL });
 const api = Firebase.database().ref(VERSION);
 
 function fetchAPI(child) {
-  const cache = api.cachedItems;
-  if (cache && cache.has(child)) {
-    return Promise.resolve(cache.get(child));
-  } else {
-    return new Promise((resolve, reject) => {
-      api.child(child).once(
-        "value",
-        snapshot => {
-          const val = snapshot.val();
-          if (val) val.__lastUpdated = Date.now();
-          cache && cache.set(child, val);
-          resolve(val);
-        },
-        reject
-      );
-    });
-  }
+  return new Promise((resolve, reject) => {
+    api.child(child).once(
+      "value",
+      snapshot => {
+        const val = snapshot.val();
+        if (val) val.__lastUpdated = Date.now();
+        resolve(val);
+      },
+      reject
+    );
+  });
 }
 
 export const BASE_URL = URL + VERSION;
-
-export function fetchIdsByType(type) {
-  return api.cachedIds && api.cachedIds[type]
-    ? Promise.resolve(api.cachedIds[type])
-    : fetchAPI(`${type}stories`);
-}
 
 export function fetchItem(id) {
   return fetchAPI(`item/${id}`);

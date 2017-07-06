@@ -38,7 +38,9 @@ export default class extends Component {
           <div class={s.navContent}>
             <Link to="/" class={s.logo}>
               <Logo />
-              <h1>{title}</h1>
+              <h1>
+                {title}
+              </h1>
             </Link>
             <Nav
               currentRoute={currentRoute}
@@ -48,7 +50,7 @@ export default class extends Component {
               handleNavOpen={this.handleNavOpen}
             />
           </div>
-          <Link to="/about" class={s.aboutLink}>
+          <Link to="/about/" class={s.aboutLink}>
             <Info />
             <span>about</span>
           </Link>

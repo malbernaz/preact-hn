@@ -2,16 +2,26 @@
 
 importScripts("/assets.js");
 
-const VERSION = self.staticAssets.hash;
-const STATIC_ASSETS = self.staticAssets.assets;
-const PAGES = ["/", "/new", "/show", "/ask", "/jobs", "/notfound"];
+const { hash: VERSION, assets: STATIC_ASSETS } = self.staticAssets;
+const PAGES = [
+  { test: /^(?:\/((?:\d+)))?(?:\/(?=$))?$/i, url: "/" },
+  { test: /^\/new(?:\/((?:\d+)))?(?:\/(?=$))?$/i, url: "/new/" },
+  { test: /^\/show(?:\/((?:\d+)))?(?:\/(?=$))?$/i, url: "/show/" },
+  { test: /^\/ask(?:\/((?:\d+)))?(?:\/(?=$))?$/i, url: "/ask/" },
+  { test: /^\/job(?:\/((?:\d+)))?(?:\/(?=$))?$/i, url: "/job/" },
+  { test: /^\/about\/?$/i, url: "/about/" },
+  { test: /^\/thread\/(?:(\d+))\/?$/i },
+  { test: /^\/user\/(?:([^\/]+?))\/?$/i }
+];
+
+const pagesToCacheOnInstall = PAGES.filter(p => !!p.url).map(p => p.url);
 
 self.oninstall = event =>
   event.waitUntil(
-    caches
-      .open(`static-${VERSION}`)
-      .then(cache => cache.addAll([...PAGES, ...STATIC_ASSETS]))
-      .then(() => self.skipWaiting())
+    Promise.all([
+      caches.open(`static-${VERSION}`).then(cache => cache.addAll(STATIC_ASSETS)),
+      caches.open(`pages-${VERSION}`).then(cache => cache.addAll(pagesToCacheOnInstall))
+    ]).then(() => self.skipWaiting())
   );
 
 self.onactivate = event =>
@@ -41,8 +51,8 @@ self.onfetch = event => {
   // Local Requests
   if (location.origin === origin) {
     // Server Rendered Pages
-    if (PAGES.some(s => s === pathname)) {
-      return staleWhileRevalidate(event, `static-${VERSION}`);
+    if (PAGES.some(p => p.test.test(pathname))) {
+      return staleWhileRevalidate(event, `pages-${VERSION}`);
     }
 
     // Static Assets

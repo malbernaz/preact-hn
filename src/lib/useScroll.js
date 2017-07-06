@@ -9,43 +9,32 @@ export default class UseScroll {
     this.scrollPositionsHistory = {};
   }
 
-  storeScroll(history) {
+  storeScroll({ location, action }) {
     if (!this.scrollRestorationSupported) return;
-
-    const { location } = history;
 
     this.scrollPositionsHistory[this.currentLocation.key] = {
       scrollX: window.pageXOffset,
       scrollY: window.pageYOffset
     };
 
-    if (history.action === "PUSH") {
+    if (action === "PUSH") {
       delete this.scrollPositionsHistory[location.key];
     }
 
     this.currentLocation = location;
   }
 
-  restoreScroll(location) {
+  restoreScroll({ key, hash }) {
     if (!this.scrollRestorationSupported) return;
 
-    const pos = this.scrollPositionsHistory[location.key];
+    let { scrollX = 0, scrollY = 0 } = this.scrollPositionsHistory[key] || {};
+    const targetHash = hash.substr(1);
 
-    let scrollX = 0;
-    let scrollY = 0;
+    if (targetHash) {
+      const target = document.getElementById(targetHash);
 
-    if (pos) {
-      scrollX = pos.scrollX;
-      scrollY = pos.scrollY;
-    } else {
-      const targetHash = location.hash.substr(1);
-
-      if (targetHash) {
-        const target = document.getElementById(targetHash);
-
-        if (target) {
-          scrollY = window.pageYOffset + target.getBoundingClientRect().top;
-        }
+      if (target) {
+        scrollY = window.pageYOffset + target.getBoundingClientRect().top;
       }
     }
 
