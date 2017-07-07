@@ -17,7 +17,7 @@
 }
 
 .root svg {
-  display: inline;
+  display: inline-block;
   height: 4rem;
   margin-bottom: 2rem;
   fill: $text-color;
@@ -25,6 +25,9 @@
 
 .root p {
   font-size: 1.05em;
+  max-width: 600px;
+  line-height: 1.5;
+  margin: 1rem auto;
 }
 
 .root p:last-child {

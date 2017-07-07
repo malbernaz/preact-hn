@@ -17,15 +17,17 @@ export default class extends Component {
           <Logo />
           <h1>Preact HN</h1>
           <p>
-            <b>Preact HN</b> is yet another hacker news PWA. It was built with Preact, Express,
-            Universal Router, Webpack, Firebase and some more awesome technologies available for
-            free.
+            <b>Preact HN</b> is yet another hacker news clone – in the form of a progressive web
+            app. It was built with Preact, Express, Universal Router, Webpack, Firebase and some
+            other awesome technologies made by amazing people.
           </p>
           <p>
-            The app repo is hosted on{" "}
+            This project is all open source and it can be found at{" "}
             <Link to="https://github.com/malbernaz/preact-hn" blank>
               GitHub
-            </Link>. Feel free to make it yours...
+            </Link>.
+            <br />
+            Feel free to make it yours...
           </p>
         </div>
       </Wrapper>
