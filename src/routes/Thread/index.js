@@ -5,7 +5,7 @@ import { fetchItem } from "../../actions";
 
 export default {
   path: "/thread/:id(\\d+)",
-  async action({ url, redirect }, { id }) {
+  async action({ redirect }, { id }) {
     const { default: Thread } = await import("./Thread" /* webpackChunkName: "thread" */);
 
     const item = await fetchItem(id);

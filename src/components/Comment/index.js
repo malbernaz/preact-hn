@@ -35,7 +35,7 @@ class Comment extends Component {
     this.setState({ repliesVisible: !this.state.repliesVisible });
   };
 
-  render({ id, item, items }, { repliesVisible }) {
+  render({ item, items }, { repliesVisible }) {
     const replies =
       item && item.kids ? item.kids.map(id => items[id]).filter(i => i && i.text && i.by) : [];
     return item && item.text && item.by
