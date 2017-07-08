@@ -10,8 +10,8 @@ function createRoute({ path, title, type }) {
     title,
     async action({ store, url }, { page = "1" }) {
       const {
-        default: Stories
-      } = await import("../components/Stories" /* webpackChunkName: "stories" */);
+        default: ListView
+      } = await import("../components/ListView" /* webpackChunkName: "listview" */);
 
       const offset = page * itemsPerPage;
 
@@ -43,7 +43,7 @@ function createRoute({ path, title, type }) {
       }
 
       const WrappedStories = connect(mapToProps)(props =>
-        <Stories
+        <ListView
           {...props}
           currentRoute={url}
           type={type}

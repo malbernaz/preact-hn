@@ -12,7 +12,7 @@ export default ({ DEV, baseConfig }) => ({
   ...baseConfig,
   entry: {
     ...baseConfig.entry,
-    vendor: ["preact", "history/createBrowserHistory", "universal-router"]
+    vendor: ["preact", "history/createBrowserHistory", "universal-router", "socket.io"]
   },
   resolve: {
     ...baseConfig.resolve,

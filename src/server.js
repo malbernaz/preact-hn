@@ -3,6 +3,7 @@
 import "isomorphic-fetch";
 
 import http from "http";
+import socketio from "socket.io";
 import { h } from "preact";
 import { resolve } from "path";
 import Router from "universal-router";
@@ -16,15 +17,19 @@ import Html from "./components/Html";
 import Provider from "./lib/ContextProvider";
 import store from "./store";
 import routes from "./routes";
+import connectToDatabase from "HNService";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const server = http.createServer(app);
+const io = socketio(server, { serveClient: false });
+
+io.on("connection", socket => connectToDatabase(socket));
 
 app.use(compression({ threshold: 0 }));
 app.use(express.static(resolve(__dirname, "public")));
 app.use(serveFavicon(resolve(__dirname, "public", "favicon.ico")));
 
-const chunks = Object.keys(assets).map(c => assets[c].js);
+const chunks = Object.keys(assets).filter(c => !/fetch/.test(c)).map(c => assets[c].js);
 
 const router = new Router(routes);
 
@@ -73,6 +78,8 @@ app.get("*", async (req, res, next) => {
   }
 });
 
-http.createServer(app).listen(port, err => {
+const port = process.env.PORT || 3000;
+
+server.listen(port, err => {
   console.log(err || `\n==> server running on port ${port}\n`);
 });

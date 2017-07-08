@@ -7,19 +7,19 @@ import Wrapper from "../Wrapper";
 import Card from "../Card";
 import Spinner from "../Spinner";
 
-import s from "./Stories.scss";
+import s from "./ListView.scss";
 
 @withStyles(s)
 export default class extends Component {
   async componentDidMount() {
-    const { offset, type, itemsPerPage } = this.props;
-    this.unwatchList = watchList(type, offset, itemsPerPage);
+    const { offset, type } = this.props;
+    this.unwatchList = watchList(type, offset);
   }
 
-  componentWillReceiveProps({ offset, type, itemsPerPage }) {
+  componentWillReceiveProps({ offset, type }) {
     if (offset !== this.props.offset) {
       this.unwatchList();
-      this.unwatchList = watchList(type, offset, itemsPerPage);
+      this.unwatchList = watchList(type, offset);
     }
   }
 

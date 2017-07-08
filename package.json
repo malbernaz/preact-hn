@@ -4,6 +4,20 @@
   "description": "A hacker news clone built with preact",
   "author": "malbernaz <albernazmiguel@gmail.com>",
   "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malbernaz/preact-hn.git"
+  },
+  "keywords": [
+    "preact",
+    "pwa",
+    "hackernews"
+  ],
+  "bugs": {
+    "url": "https://github.com/malbernaz/preact-hn/issues"
+  },
+  "homepage": "https://preact-hn.now.sh",
   "scripts": {
     "build:dev:client": "webpack --env dev:client",
     "build:dev:server": "webpack --env dev:server",
@@ -61,12 +75,15 @@
     "history": "^4.6.3",
     "hoist-non-react-statics": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
+    "lru-cache": "^4.1.1",
     "normalize.css": "^7.0.0",
     "preact": "^8.1.0",
     "preact-render-to-string": "^3.6.3",
     "preact-transition-group": "^1.1.1",
     "query-string": "^4.3.4",
     "serve-favicon": "^2.4.3",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3",
     "universal-router": "^3.2.0"
   }
 }

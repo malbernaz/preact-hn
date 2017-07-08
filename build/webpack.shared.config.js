@@ -36,10 +36,16 @@ export default env => {
       path: resolve(CLIENT ? "dist/public" : "dist")
     },
     resolve: {
-      alias: ["preact", "preact-transition-group"].reduce(
-        (acc, c) => ({ ...acc, [c]: `${c}/dist/${c}${DEV ? ".min" : ""}` }),
-        {}
-      ),
+      alias: {
+        ...["preact", "preact-transition-group"].reduce(
+          (acc, c) => ({ ...acc, [c]: `${c}/dist/${c}${!DEV ? ".min" : ""}` }),
+          {}
+        ),
+        HNService: CLIENT ? "./lib/HNService.client" : "./lib/HNService.server",
+        "socket.io": CLIENT
+          ? `socket.io-client/dist/socket.io${!DEV ? ".slim" : ""}.js`
+          : "socket.io"
+      },
       mainFields: ["jsnext:main", "main"]
     },
     module: {

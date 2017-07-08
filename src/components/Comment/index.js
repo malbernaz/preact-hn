@@ -11,7 +11,7 @@ import Link from "../Link";
 import s from "./Comment.scss";
 
 class Comment extends Component {
-  state = { repliesVisible: false };
+  state = { repliesVisible: true };
 
   componentDidMount() {
     const { item } = this.props;

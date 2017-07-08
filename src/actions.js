@@ -1,24 +1,20 @@
-import {
-  BASE_URL,
-  fetchItems,
-  fetchItem as HNFetchItem,
-  watchList as HNWatch
-} from "./lib/HNService";
+import * as hn from "HNService";
+
 import store from "./store";
+import { itemsPerPage } from "./config";
 
 export async function fetchIds(type) {
   store.setState({ itemsFetched: false });
-  const res = await fetch(`${BASE_URL}/${type}stories.json`);
-  const ids = await res.json();
+  const ids = await hn.fetchIdsByType(type);
   store.setState({ currentStory: type, [type]: { ...store.getState()[type], ids } });
   return ids;
 }
 
-export function fetchStories(type, offset, itemsPerPage) {
+export function fetchStories(type, offset) {
   return async ids => {
     store.setState({ itemsFetched: false });
     try {
-      const fetchedItems = await fetchItems(ids.slice(offset - itemsPerPage, offset));
+      const fetchedItems = await hn.fetchItems(ids.slice(offset - itemsPerPage, offset));
       const { items } = store.getState();
       store.setState({
         itemsFetched: true,
@@ -39,7 +35,7 @@ export function fetchStories(type, offset, itemsPerPage) {
 export async function fetchComments(ids) {
   const { items: storeItems } = store.getState();
   const fetchAndStore = async id => {
-    const item = await HNFetchItem(id);
+    const item = await hn.fetchItem(id);
     store.setState({ items: { ...store.getState().items, [id]: item } });
     return item;
   };
@@ -53,8 +49,8 @@ export async function fetchComments(ids) {
   }
 }
 
-export function watchList(type, offset, itemsPerPage) {
-  return HNWatch(type, fetchStories(type, offset, itemsPerPage));
+export function watchList(type, offset) {
+  return hn.watchList(type, fetchStories(type, offset));
 }
 
 export async function fetchItem(id) {
@@ -63,8 +59,7 @@ export async function fetchItem(id) {
   if (items[id]) {
     item = items[id];
   } else {
-    const res = await fetch(`${BASE_URL}/item/${id}.json`);
-    item = await res.json();
+    item = await hn.fetchItem(id);
     store.setState({ items: { ...items, [id]: item } });
   }
   return item;
@@ -76,8 +71,7 @@ export async function fetchUser(username) {
   if (users[username]) {
     user = users[username];
   } else {
-    const res = await fetch(`${BASE_URL}/user/${username}.json`);
-    user = await res.json();
+    user = await hn.fetchUser(username);
     store.setState({ users: { ...users, [username]: user } });
   }
   return user;
