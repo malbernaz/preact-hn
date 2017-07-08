@@ -32,13 +32,16 @@ self.onfetch = event => {
 
   const { pathname, href, origin } = requestUrl;
 
-  // Webpack Hot Module Reloading
-  if (_DEV_ && /(hot-update|sockjs-node)/.test(href)) {
-    return event.respondWith(fetch(requestUrl));
+  // Webpack Hot Module Replacement
+  if (_DEV_) {
+    if (/(hot-update|sockjs-node)/.test(href)) {
+      return;
+    }
   }
 
-  if (/socket/.test(href)) {
-    return event.respondWith(fetch(requestUrl));
+  // Prevent service worker from requesting socket connection
+  if (/socket\.io/.test(href)) {
+    return;
   }
 
   // Local Requests
