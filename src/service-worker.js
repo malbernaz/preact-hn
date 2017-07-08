@@ -37,6 +37,10 @@ self.onfetch = event => {
     return event.respondWith(fetch(requestUrl));
   }
 
+  if (/socket/.test(href)) {
+    return event.respondWith(fetch(requestUrl));
+  }
+
   // Local Requests
   if (location.origin === origin) {
     // Static Assets
