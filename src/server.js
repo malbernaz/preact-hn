@@ -26,8 +26,14 @@ const io = socketio(server, { serveClient: false });
 io.on("connection", socket => connectToDatabase(socket));
 
 app.use(compression({ threshold: 0 }));
-app.use(express.static(resolve(__dirname, "public")));
 app.use(serveFavicon(resolve(__dirname, "public", "favicon.ico")));
+app.use(
+  express.static(resolve(__dirname, "public"), {
+    setHeaders(res) {
+      res.setHeader("Cache-Control", "public,max-age=31536000,immutable");
+    }
+  })
+);
 
 const chunks = Object.keys(assets).filter(c => !/fetch/.test(c)).map(c => assets[c].js);
 

@@ -44,7 +44,7 @@ async function bootstrap(location) {
     if (!_DEV_) await registerServiceWorker();
 
     if (!self.fetch) {
-      await import("isomorphic-fetch" /* webpackChunkName: "fetch-polyfill" */);
+      await import("unfetch" /* webpackChunkName: "fetch-polyfill" */);
     }
   }
 
