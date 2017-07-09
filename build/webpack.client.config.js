@@ -8,11 +8,19 @@ import transform from "./stats-transform";
 
 const { optimize: { CommonsChunkPlugin } } = webpack;
 
+const babelLoader = {
+  loader: "babel-loader",
+  options: {
+    presets: [["es2015", { loose: true, modules: false }]],
+    plugins: ["transform-object-rest-spread"]
+  }
+};
+
 export default ({ DEV, baseConfig }) => ({
   ...baseConfig,
   entry: {
     ...baseConfig.entry,
-    vendor: ["preact", "history/createBrowserHistory", "universal-router", "socket.io"]
+    vendor: ["preact", "history/createBrowserHistory", "universal-router"]
   },
   resolve: {
     ...baseConfig.resolve,
@@ -38,7 +46,20 @@ export default ({ DEV, baseConfig }) => ({
               name: DEV ? "service-worker.js" : "service-worker.[hash].js"
             }
           },
-          "babel-loader"
+          babelLoader
+        ]
+      },
+      {
+        test: /\.worker\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "worker-loader",
+            options: {
+              name: DEV ? "[name].js" : "[name].[hash].js"
+            }
+          },
+          babelLoader
         ]
       }
     ]

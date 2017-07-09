@@ -1,45 +1,37 @@
-import io from "socket.io";
+/* eslint-disable */
+import PromiseWorker from "promise-worker";
+import HNServiceWorker from "./HNService.worker";
 
-const socket = io(_DEV_ ? "http://localhost:3000" : location.origin);
+const worker = new HNServiceWorker();
+const promiseWorker = new PromiseWorker(worker);
 
 export function fetchIdsByType(type) {
-  return new Promise(resolve => {
-    socket.emit("fetchIdsByType", type, ids => {
-      resolve(ids);
-    });
-  });
+  return promiseWorker.postMessage({ action: "fetchIdsByType", payload: type });
 }
 
 export function fetchItem(id) {
-  return new Promise(resolve => {
-    socket.emit("fetchItem", id, item => {
-      resolve(item);
-    });
-  });
+  return promiseWorker.postMessage({ action: "fetchItem", payload: id });
 }
 
-export function fetchItems(id) {
-  return new Promise(resolve => {
-    socket.emit("fetchItems", id, items => {
-      resolve(items);
-    });
-  });
+export function fetchItems(ids) {
+  return promiseWorker.postMessage({ action: "fetchItems", payload: ids });
 }
 
 export function fetchUser(username) {
-  return new Promise(resolve => {
-    socket.emit("fetchUser", username, user => {
-      resolve(user);
-    });
-  });
+  return promiseWorker.postMessage({ action: "fetchUser", payload: username });
 }
 
-export function watchList(type, cb) {
-  socket.emit("watchList", type, ids => {
-    cb(ids);
-  });
+let watchListCallback;
+worker.onmessage = ({ data: { action, payload } }) => {
+  if (action) {
+    watchListCallback(payload);
+  }
+};
 
+export function watchList(type, cb) {
+  watchListCallback = cb;
+  worker.postMessage({ action: "watchList", payload: type });
   return () => {
-    socket.emit("unwatchList");
+    worker.postMessage({ action: "unwatchList" });
   };
 }

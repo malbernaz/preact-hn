@@ -105,9 +105,9 @@ export default function connectToDatabase(socket) {
   });
 
   let unwatchList;
-  socket.on("watchList", (type, fn) => {
+  socket.on("watchList", type => {
     unwatchList = watchList(type, items => {
-      fn(items);
+      socket.emit("watchList", items);
     });
   });
 
