@@ -1,14 +1,15 @@
-import { resolve } from "path";
+import { resolve, extname } from "path";
 import { writeFileSync, mkdir } from "fs";
 
-export default ({ DEV }) => ({ assets, assetsByChunkName, hash }, { compiler }) => {
-  const formatedAssets = Object.keys(assetsByChunkName).reduce((obj, key) => {
-    const asset =
-      assetsByChunkName[key] instanceof Array ? assetsByChunkName[key][0] : assetsByChunkName[key];
-
-    const ext = asset.match(DEV ? /\.\w{2,4}/ : /\.\w{2,4}$/)[0].replace(/\./, "");
-
-    return { ...obj, [key]: { [ext]: asset } };
+export default () => ({ assets, assetsByChunkName, hash }, { compiler }) => {
+  const formatedAssets = assets.reduce((obj, asset) => {
+    const ext = extname(asset.name).replace(".", "");
+    const [chunkName] = asset.chunkNames.filter(n => !/(hot-update|sockjs-node)/.test(n));
+    const file = Array.isArray(assetsByChunkName[chunkName])
+      ? assetsByChunkName[chunkName][0]
+      : assetsByChunkName[chunkName];
+    const assetName = chunkName || asset.name.split(".")[0];
+    return { ...obj, [assetName]: { ...obj[assetName], [ext]: file || asset.name } };
   }, {});
 
   const distDir = resolve(__dirname, "..", "dist");

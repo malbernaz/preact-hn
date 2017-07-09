@@ -15,25 +15,26 @@ function createRoute({ path, title, type }) {
 
       const offset = page * itemsPerPage;
 
-      const typeState = store.getState()[type];
-      let ids = typeState.ids;
+      if (_CLIENT_) {
+        const fetchStoriesByType = fetchStories(type, offset, itemsPerPage);
+        const { [type]: typeState, items } = store.getState();
+        let { ids } = typeState;
 
-      if (ids.length) {
-        store.setState({ currentStory: type });
-      } else {
-        if (!_CLIENT_) {
-          ids = await fetchIds(type);
+        if (ids.length) {
+          store.setState({ currentStory: type });
+
+          const itemsExist = ids
+            .slice(offset - itemsPerPage, offset)
+            .some(id => typeof items[id] !== "undefined");
+
+          if (!itemsExist) {
+            fetchStoriesByType(ids);
+          }
         } else {
-          fetchIds(type).then(ids => {
-            if (_CLIENT_) {
-              fetchStories(type, offset, itemsPerPage)(ids);
-            }
-          });
+          fetchIds(type).then(ids => fetchStoriesByType(ids));
         }
-      }
-
-      if (_CLIENT_ && ids.length && !typeState[page]) {
-        fetchStories(type, offset, itemsPerPage)(ids);
+      } else {
+        await fetchIds(type);
       }
 
       function mapToProps(state) {

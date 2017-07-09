@@ -18,13 +18,9 @@ export function fetchStories(type, offset) {
       const { items } = store.getState();
       store.setState({
         itemsFetched: true,
-        items: fetchedItems.filter(item => !!item).reduce(
-          (state, item) => ({
-            ...state,
-            [item.id]: item
-          }),
-          items
-        )
+        items: fetchedItems
+          .filter(item => !!item)
+          .reduce((state, item) => ({ ...state, [item.id]: item }), items)
       });
     } catch (err) {
       console.error(err); // eslint-disable-line no-console
