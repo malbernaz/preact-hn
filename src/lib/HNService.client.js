@@ -1,51 +1,36 @@
-import Firebase from "firebase/app";
-import "firebase/database";
+import PromiseWorker from "promise-worker";
+import HNServiceWorker from "./HNService.worker";
 
-Firebase.initializeApp({ databaseURL: "https://hacker-news.firebaseio.com" });
+const worker = new HNServiceWorker();
+const promiseWorker = new PromiseWorker(worker);
 
-const api = Firebase.database().ref("/v0");
-
-function fetchAPI(child) {
-  return new Promise((resolve, reject) => {
-    api.child(child).once(
-      "value",
-      snapshot => {
-        const val = snapshot.val();
-        resolve(val);
-      },
-      reject
-    );
-  });
+export function fetchIdsByType(type) {
+  return promiseWorker.postMessage({ action: "fetchIdsByType", payload: type });
 }
 
 export function fetchItem(id) {
-  return fetchAPI(`item/${id}`);
+  return promiseWorker.postMessage({ action: "fetchItem", payload: id });
 }
 
 export function fetchItems(ids) {
-  return Promise.all(ids.map(id => fetchItem(id)));
-}
-
-export function fetchIdsByType(type) {
-  return fetchAPI(`${type}stories`);
+  return promiseWorker.postMessage({ action: "fetchItems", payload: ids });
 }
 
 export function fetchUser(username) {
-  return fetchAPI(`user/${username}`);
+  return promiseWorker.postMessage({ action: "fetchUser", payload: username });
 }
 
+let watchListCallback;
+worker.onmessage = ({ data: { action, payload } }) => {
+  if (action) {
+    watchListCallback(payload);
+  }
+};
+
 export function watchList(type, cb) {
-  let first = true;
-  const ref = api.child(`${type}stories`);
-  const handler = snapshot => {
-    if (first) {
-      first = false;
-    } else {
-      cb(snapshot.val());
-    }
-  };
-  ref.on("value", handler);
+  watchListCallback = cb;
+  worker.postMessage({ action: "watchList", payload: type });
   return () => {
-    ref.off("value", handler);
+    worker.postMessage({ action: "unwatchList" });
   };
 }

@@ -30,7 +30,9 @@ app.use(
   })
 );
 
-const chunks = Object.keys(assets).filter(c => !/fetch/.test(c)).map(c => assets[c].js);
+const chunks = Object.keys(assets)
+  .filter(c => !/fetch/.test(c) && !!assets[c].js)
+  .map(c => assets[c].js);
 
 const router = new Router(routes);
 
