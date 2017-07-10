@@ -6,7 +6,8 @@ const initialState = _CLIENT_
       currentStory: "top",
       items: {},
       users: {},
-      itemsFetched: false
+      itemsFetched: false,
+      animateOnFirstRender: false
     });
 
 const store = createStore(initialState);

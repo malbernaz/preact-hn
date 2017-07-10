@@ -1,45 +1,51 @@
-import io from "socket.io";
+import Firebase from "firebase/app";
+import "firebase/database";
 
-const socket = io(_DEV_ ? "http://localhost:3000" : location.origin);
+Firebase.initializeApp({ databaseURL: "https://hacker-news.firebaseio.com" });
 
-export function fetchIdsByType(type) {
-  return new Promise(resolve => {
-    socket.emit("fetchIdsByType", type, ids => {
-      resolve(ids);
-    });
+const api = Firebase.database().ref("/v0");
+
+function fetchAPI(child) {
+  return new Promise((resolve, reject) => {
+    api.child(child).once(
+      "value",
+      snapshot => {
+        const val = snapshot.val();
+        resolve(val);
+      },
+      reject
+    );
   });
 }
 
 export function fetchItem(id) {
-  return new Promise(resolve => {
-    socket.emit("fetchItem", id, item => {
-      resolve(item);
-    });
-  });
+  return fetchAPI(`item/${id}`);
 }
 
-export function fetchItems(id) {
-  return new Promise(resolve => {
-    socket.emit("fetchItems", id, items => {
-      resolve(items);
-    });
-  });
+export function fetchItems(ids) {
+  return Promise.all(ids.map(id => fetchItem(id)));
+}
+
+export function fetchIdsByType(type) {
+  return fetchAPI(`${type}stories`);
 }
 
 export function fetchUser(username) {
-  return new Promise(resolve => {
-    socket.emit("fetchUser", username, user => {
-      resolve(user);
-    });
-  });
+  return fetchAPI(`user/${username}`);
 }
 
 export function watchList(type, cb) {
-  socket.emit("watchList", type, ids => {
-    cb(ids);
-  });
-
+  let first = true;
+  const ref = api.child(`${type}stories`);
+  const handler = snapshot => {
+    if (first) {
+      first = false;
+    } else {
+      cb(snapshot.val());
+    }
+  };
+  ref.on("value", handler);
   return () => {
-    socket.emit("unwatchList");
+    ref.off("value", handler);
   };
 }

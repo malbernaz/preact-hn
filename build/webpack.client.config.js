@@ -10,10 +10,6 @@ const { optimize: { CommonsChunkPlugin } } = webpack;
 
 export default ({ DEV, baseConfig }) => ({
   ...baseConfig,
-  entry: {
-    ...baseConfig.entry,
-    vendor: ["preact", "history/createBrowserHistory", "universal-router", "socket.io"]
-  },
   resolve: {
     ...baseConfig.resolve,
     mainFields: ["jsnext:browser", "jsnext:main", "browser", "main"]
@@ -51,10 +47,15 @@ export default ({ DEV, baseConfig }) => ({
       transform: transform({ DEV })
     }),
     new CommonsChunkPlugin({
-      names: ["common", "vendor"]
+      name: "vendor",
+      minChunks: ({ context }) => {
+        if (typeof context !== "string") return false;
+        return context.indexOf("node_modules") !== -1;
+      }
     }),
     new CommonsChunkPlugin({
-      name: "manifest"
+      name: "manifest",
+      minChunks: Infinity
     }),
     new CopyPlugin([
       {

@@ -112,7 +112,7 @@ export default env => {
       ]
     },
     bail: !DEV,
-    devtool: DEV ? "eval" : "source-map",
+    devtool: DEV ? "eval" : false,
     plugins: [
       new LoaderOptionsPlugin({
         minimize: !DEV,

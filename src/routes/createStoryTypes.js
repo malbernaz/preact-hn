@@ -14,33 +14,30 @@ function createRoute({ path, title, type }) {
       } = await import("../components/ListView" /* webpackChunkName: "listview" */);
 
       const offset = page * itemsPerPage;
+      const fetchStoriesByType = fetchStories(type, offset, itemsPerPage);
 
-      if (_CLIENT_) {
-        const fetchStoriesByType = fetchStories(type, offset, itemsPerPage);
-        const { [type]: typeState, items } = store.getState();
-        let { ids } = typeState;
+      if (!_CLIENT_) {
+        await fetchIds(type).then(ids => fetchStoriesByType(ids));
+      } else {
+        const typeState = store.getState()[type];
+        const { ids } = typeState;
 
         if (ids.length) {
           store.setState({ currentStory: type });
-
-          const itemsExist = ids
-            .slice(offset - itemsPerPage, offset)
-            .some(id => typeof items[id] !== "undefined");
-
-          if (!itemsExist) {
-            fetchStoriesByType(ids);
-          }
+          fetchStoriesByType(ids);
         } else {
           fetchIds(type).then(ids => fetchStoriesByType(ids));
         }
-      } else {
-        await fetchIds(type);
       }
 
       function mapToProps(state) {
         const ids = state[type].ids.slice(offset - itemsPerPage, offset);
         const items = ids.map(id => state.items[id]).filter(i => !!i && !!i.id);
-        return { ...state[type], items: items.length === ids.length ? items : [] };
+        return {
+          ...state[type],
+          items: items.length === ids.length ? items : [],
+          animateOnFirstRender: state.animateOnFirstRender
+        };
       }
 
       const WrappedStories = connect(mapToProps)(props =>
@@ -53,12 +50,7 @@ function createRoute({ path, title, type }) {
         />
       );
 
-      return {
-        title,
-        page,
-        type,
-        component: <WrappedStories />
-      };
+      return { title, page, type, component: <WrappedStories /> };
     }
   };
 }

@@ -3,11 +3,11 @@ import qs from "query-string";
 
 import { fetchUser } from "../../actions";
 
+import User from "./User";
+
 export default {
   path: "/user/:username",
   async action({ redirect }, { username }) {
-    const { default: User } = await import("./User" /* webpackChunkName: "user" */);
-
     const user = await fetchUser(username);
 
     if (!user) {

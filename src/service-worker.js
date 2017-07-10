@@ -53,10 +53,9 @@ self.onfetch = event => {
 
     // Server Rendered Pages
     return staleWhileRevalidate(event, `pages-${VERSION}`);
+  } else {
+    return event.respondWith(fetch(requestUrl, { mode: "no-cors" }));
   }
-
-  // Dynamic Requests
-  return staleWhileRevalidate(event, `dynamic-${VERSION}`);
 };
 
 function staleWhileRevalidate(event, cacheName) {

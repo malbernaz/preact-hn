@@ -4,7 +4,7 @@ import { h } from "preact";
 
 import config from "../config";
 
-export default ({ chunks, vendor, component, manifest, script, style, title, initialState }) =>
+export default ({ chunks, component, initialState, manifest, script, style, title, vendor }) =>
   <html lang={config.lang}>
     <head>
       <meta charSet="utf-8" />

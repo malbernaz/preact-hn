@@ -24,17 +24,21 @@ export default class extends Component {
   }
 
   componentWillUnmount() {
+    const { store, animateOnFirstRender } = this.props;
     if (this.unwatchList) this.unwatchList();
+    if (!animateOnFirstRender) {
+      store.setState({ animateOnFirstRender: true });
+    }
   }
 
-  render({ offset, itemsPerPage, itemsFetched, items = [] }) {
+  render({ offset, itemsPerPage, itemsFetched, items = [], animateOnFirstRender }) {
     return (
       <Wrapper>
         {!itemsFetched && !items.length
           ? <div class={s.spinnerContainer}>
               <Spinner />
             </div>
-          : <div class={s.root}>
+          : <div class={`${s.root} ${!animateOnFirstRender ? s.disableAnimation : ""}`}>
               {items.map((item, index) =>
                 <Card
                   {...item}

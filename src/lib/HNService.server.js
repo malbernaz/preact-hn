@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import Firebase from "firebase";
 import LRU from "lru-cache";
 
@@ -77,41 +75,4 @@ export function watchList(type, cb) {
   return () => {
     ref.off("value", handler);
   };
-}
-
-export default function connectToDatabase(socket) {
-  socket.on("fetchIdsByType", (type, fn) => {
-    fetchIdsByType(type).then(ids => {
-      fn(ids);
-    });
-  });
-
-  socket.on("fetchItem", (id, fn) => {
-    fetchItem(id).then(item => {
-      fn(item);
-    });
-  });
-
-  socket.on("fetchItems", (ids, fn) => {
-    fetchItems(ids).then(items => {
-      fn(items);
-    });
-  });
-
-  socket.on("fetchUser", (username, fn) => {
-    fetchUser(username).then(items => {
-      fn(items);
-    });
-  });
-
-  let unwatchList;
-  socket.on("watchList", (type, fn) => {
-    unwatchList = watchList(type, items => {
-      fn(items);
-    });
-  });
-
-  socket.on("unwatchList", () => {
-    unwatchList();
-  });
 }

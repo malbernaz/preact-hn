@@ -13,6 +13,10 @@
   }
 }
 
+.disableAnimation {
+  animation: none;
+}
+
 .spinnerContainer {
   position: relative;
   min-height: calc(100vh - 60px);

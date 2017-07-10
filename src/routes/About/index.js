@@ -1,10 +1,9 @@
 import { h } from "preact";
+import About from "./About";
 
 export default {
   path: "/about",
-  async action() {
-    const { default: About } = await import("./About" /* webpackChunkName: "about" */);
-
+  action() {
     return {
       title: "about",
       component: <About />

@@ -3,7 +3,6 @@
 import "isomorphic-fetch";
 
 import http from "http";
-import socketio from "socket.io";
 import { h } from "preact";
 import { resolve } from "path";
 import Router from "universal-router";
@@ -17,13 +16,9 @@ import Html from "./components/Html";
 import Provider from "./lib/ContextProvider";
 import store from "./store";
 import routes from "./routes";
-import connectToDatabase from "HNService";
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server, { serveClient: false });
-
-io.on("connection", socket => connectToDatabase(socket));
 
 app.use(compression({ threshold: 0 }));
 app.use(serveFavicon(resolve(__dirname, "public", "favicon.ico")));

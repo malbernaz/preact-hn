@@ -1,11 +1,10 @@
 import { h } from "preact";
 import qs from "query-string";
+import NotFound from "./NotFound";
 
 export default {
   path: "*",
-  async action({ url, search }) {
-    const { default: NotFound } = await import("./NotFound" /* webpackChunkName: "notfound" */);
-
+  action({ url, search }) {
     let message = "";
     if (search) ({ message } = qs.parse(search));
 
