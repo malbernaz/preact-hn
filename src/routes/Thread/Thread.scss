@@ -54,6 +54,8 @@
 
 .commentsCount p {
   margin: 0;
+  height: 30px;
+  line-height: 30px;
 }
 
 .commentsCountCommentsLoaded {
@@ -71,14 +73,4 @@
   width: 30px;
   margin-left: .5rem;
   transform: scale(.6);
-}
-
-@media (max-width: $tablet) {
-  .root {
-    margin-bottom: 1rem;
-  }
-
-  .commentsContainer {
-    margin-top: 1rem;
-  }
 }
