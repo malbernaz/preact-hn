@@ -1,4 +1,3 @@
-import { h } from "preact";
 import qs from "query-string";
 import NotFound from "./NotFound";
 

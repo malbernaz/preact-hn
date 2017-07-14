@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { Component } from "preact";
 
 export default function withStyles(...styles) {
   return WrappedComponent =>

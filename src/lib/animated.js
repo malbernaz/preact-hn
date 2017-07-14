@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { Component } from "preact";
 
 export default Wrapped =>
   class extends Component {

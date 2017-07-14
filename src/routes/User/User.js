@@ -1,5 +1,3 @@
-import { h } from "preact";
-
 import withStyles from "../../lib/withStyles";
 import { timeago } from "../../lib/util";
 

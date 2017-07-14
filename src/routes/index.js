@@ -1,6 +1,5 @@
 import "../styles/main.scss";
 
-import { h } from "preact";
 import TransitionGroup from "preact-transition-group";
 import Router from "universal-router";
 

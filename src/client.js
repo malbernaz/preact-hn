@@ -1,4 +1,4 @@
-import { h, render, options } from "preact";
+import { render, options } from "preact";
 import Router from "universal-router";
 
 import { updateTitle } from "./lib/updateTag";

@@ -1,24 +1,49 @@
 import path from "path";
 import webpack, { DefinePlugin, LoaderOptionsPlugin } from "webpack";
+import BabiliPlugin from "babili-webpack-plugin";
 
 import clientConfig from "./webpack.client.config";
 import serverConfig from "./webpack.server.config";
-
-const { optimize: { UglifyJsPlugin } } = webpack;
 
 const resolve = p => path.resolve(__dirname, "..", p);
 
 const babelLoader = {
   loader: "babel-loader",
   options: {
-    presets: [["es2015", { loose: true, modules: false }]],
+    babelrc: false,
+    presets: [
+      [
+        "env",
+        {
+          loose: true,
+          modules: false,
+          targets: {
+            chrome: 58,
+            edge: 14,
+            firefox: 53,
+            safari: 10,
+            node: "current"
+          },
+          exclude: ["transform-regenerator", "transform-es2015-typeof-symbol"]
+        }
+      ]
+    ],
     plugins: [
       "async-to-promises",
+      "syntax-dynamic-import",
       "transform-class-properties",
       "transform-decorators-legacy",
-      "transform-object-rest-spread",
-      "syntax-dynamic-import",
-      ["transform-react-jsx", { pragma: "h" }]
+      "transform-react-constant-elements",
+      ["transform-object-rest-spread", { useBuiltIns: true }],
+      ["transform-react-jsx", { pragma: "h" }],
+      [
+        "jsx-pragmatic",
+        {
+          module: "preact",
+          export: "h",
+          import: "h"
+        }
+      ]
     ]
   }
 };
@@ -124,26 +149,7 @@ export default env => {
         "process.env.NODE_ENV": JSON.stringify(DEV ? "development" : "production")
       }),
       new webpack.optimize.ModuleConcatenationPlugin()
-    ].concat(
-      !DEV
-        ? [
-            new UglifyJsPlugin({
-              compress: {
-                screw_ie8: true,
-                warnings: false
-              },
-              output: {
-                comments: false,
-                screw_ie8: true
-              },
-              mangle: {
-                screw_ie8: true
-              },
-              sourceMap: true
-            })
-          ]
-        : []
-    ),
+    ].concat(!DEV ? [new BabiliPlugin()] : []),
     stats: { colors: true }
   };
 

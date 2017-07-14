@@ -11,7 +11,24 @@ const { optimize: { CommonsChunkPlugin } } = webpack;
 const babelLoader = {
   loader: "babel-loader",
   options: {
-    presets: [["es2015", { loose: true, modules: false }]],
+    babelrc: false,
+    presets: [
+      [
+        "env",
+        {
+          loose: true,
+          modules: false,
+          targets: {
+            chrome: 58,
+            edge: 14,
+            firefox: 53,
+            safari: 10,
+            node: "current"
+          },
+          exclude: ["transform-regenerator", "transform-es2015-typeof-symbol"]
+        }
+      ]
+    ],
     plugins: ["transform-object-rest-spread"]
   }
 };
@@ -74,6 +91,7 @@ export default ({ DEV, baseConfig }) => ({
         return context.indexOf("node_modules") !== -1;
       }
     }),
+    new webpack.IgnorePlugin(/lie/, /promise-worker/),
     new CommonsChunkPlugin({
       name: "manifest",
       minChunks: Infinity

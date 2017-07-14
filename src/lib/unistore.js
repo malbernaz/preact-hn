@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { Component } from "preact";
 
 /** Creates a new store, which is a tiny evented state container.
  *  @example

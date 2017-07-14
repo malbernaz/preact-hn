@@ -3,7 +3,6 @@
 import "isomorphic-fetch";
 
 import http from "http";
-import { h } from "preact";
 import { resolve } from "path";
 import Router from "universal-router";
 import compression from "compression";

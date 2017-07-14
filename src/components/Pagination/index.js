@@ -1,4 +1,4 @@
-import { h, Component } from "preact";
+import { Component } from "preact";
 
 import withStyles from "../../lib/withStyles";
 import { connect } from "../../lib/unistore";

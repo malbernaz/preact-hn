@@ -1,5 +1,3 @@
-import { h } from "preact";
-
 export default props =>
   <svg {...props} viewBox="0 0 28 28">
     {/* <path fill="#673AB8" d="M 0 0L 28 0L 28 28L 0 28L 0 0Z" /> */}

@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-key */
 
-import { h } from "preact";
-
 import config from "../config";
 
 export default ({ chunks, component, initialState, manifest, script, style, title, vendor }) =>

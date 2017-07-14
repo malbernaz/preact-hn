@@ -1,5 +1,6 @@
 /* eslint-disable */
-import { h, Component } from "preact";
+
+import { Component } from "preact";
 
 import withStyles from "../../lib/withStyles";
 import { title } from "../../config";

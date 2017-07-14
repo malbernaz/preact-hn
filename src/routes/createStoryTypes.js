@@ -1,5 +1,3 @@
-import { h } from "preact";
-
 import { connect } from "../lib/unistore";
 import { fetchIds, fetchStories } from "../actions";
 import { itemsPerPage } from "../config";

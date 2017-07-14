@@ -1,4 +1,3 @@
-import { h } from "preact";
 import About from "./About";
 
 export default {

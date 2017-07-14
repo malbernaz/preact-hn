@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 
-import { h, Component } from "preact";
+import { Component } from "preact";
 
 import withStyles from "../../lib/withStyles";
 import { timeago, pluralize } from "../../lib/util";

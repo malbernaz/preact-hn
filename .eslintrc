@@ -8,23 +8,18 @@
     "_DEV_": true,
     "_CLIENT_": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "plugins": [
-    "react",
-    "import"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["react", "import"],
   "parser": "babel-eslint",
   "parserOptions": {
     "allowImportExportEverywhere": true
   },
   "rules": {
     "no-console": "warn",
-    "react/prop-types": 0,
-    "react/display-name": 0,
-    "react/no-unknown-property": 0
+    "react/prop-types": "off",
+    "react/display-name": "off",
+    "react/no-unknown-property": "off",
+    "react/react-in-jsx-scope": "off"
   },
   "settings": {
     "react": {
