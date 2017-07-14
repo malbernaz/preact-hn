@@ -41,7 +41,7 @@
 
 .commentsContainer {
   margin-top: 2rem;
-  padding: .5rem 1.5rem;
+  padding: 1rem;
   background: $secondary-color;
 }
 
@@ -53,15 +53,16 @@
 }
 
 .commentsCount p {
-  margin: 1rem 0;
-}
-
-.comments {
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
 .commentsCountCommentsLoaded {
   border-bottom: 1px solid $shadow-color;
+  margin-bottom: 1rem;
+}
+
+.commentsCountCommentsLoaded p {
+  margin-bottom: 1rem;
 }
 
 .commentsCount span {

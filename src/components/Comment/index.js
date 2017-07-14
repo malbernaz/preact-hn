@@ -58,7 +58,13 @@ class Comment extends Component {
               onClick={this.toggleReplies}
               class={`${s.toggleReplies} ${!repliesVisible ? s.toggleRepliesCollapsed : ""}`}
             >
-              {repliesVisible ? "[-]" : `[+] ${pluralize(replies.length, " comment")} hidden`}
+              {repliesVisible
+                ? <span>
+                    <code>-</code>
+                  </span>
+                : <span>
+                    <code>+</code> {pluralize(replies.length, " comment")} hidden
+                  </span>}
             </a>,
             <div class={s.comments} style={{ display: !repliesVisible ? "none" : "" }}>
               {replies.map(({ id }) => <WrappedComment key={id} id={id} />)}
