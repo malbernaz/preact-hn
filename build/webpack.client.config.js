@@ -5,33 +5,9 @@ import { StatsWriterPlugin as StatsPlugin } from "webpack-stats-plugin";
 import CopyPlugin from "copy-webpack-plugin";
 
 import transform from "./stats-transform";
+import babelLoader from "./babelConfig";
 
 const { optimize: { CommonsChunkPlugin } } = webpack;
-
-const babelLoader = {
-  loader: "babel-loader",
-  options: {
-    babelrc: false,
-    presets: [
-      [
-        "env",
-        {
-          loose: true,
-          modules: false,
-          targets: {
-            chrome: 58,
-            edge: 14,
-            firefox: 53,
-            safari: 10,
-            node: "current"
-          },
-          exclude: ["transform-regenerator", "transform-es2015-typeof-symbol"]
-        }
-      ]
-    ],
-    plugins: ["transform-object-rest-spread"]
-  }
-};
 
 export default ({ DEV, baseConfig }) => ({
   ...baseConfig,
