@@ -59,11 +59,9 @@ class Comment extends Component {
               class={`${s.toggleReplies} ${!repliesVisible ? s.toggleRepliesCollapsed : ""}`}
             >
               {repliesVisible
-                ? <span>
-                    <code>-</code>
-                  </span>
+                ? <span>[-]</span>
                 : <span>
-                    <code>+</code> {pluralize(replies.length, " comment")} hidden
+                    [+] {pluralize(replies.length, " comment")} hidden
                   </span>}
             </a>,
             <div class={s.comments} style={{ display: !repliesVisible ? "none" : "" }}>

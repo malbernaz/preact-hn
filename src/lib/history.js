@@ -1,3 +1,3 @@
-import createBrowserHistory from "history/createBrowserHistory";
+import History from "tiny-history";
 
-export default _CLIENT_ && createBrowserHistory();
+export default _CLIENT_ && new History();

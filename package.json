@@ -9,7 +9,11 @@
     "type": "git",
     "url": "git+https://github.com/malbernaz/preact-hn.git"
   },
-  "keywords": ["preact", "pwa", "hackernews"],
+  "keywords": [
+    "preact",
+    "pwa",
+    "hackernews"
+  ],
   "bugs": {
     "url": "https://github.com/malbernaz/preact-hn/issues"
   },
@@ -54,7 +58,7 @@
     "fast-async": "^6.3.0",
     "file-loader": "^0.11.2",
     "image-webpack-loader": "^3.3.1",
-    "isomorphic-style-loader": "^2.0.0",
+    "isomorphic-style-loader": "^3.0.0",
     "json-loader": "^0.5.4",
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
@@ -71,7 +75,6 @@
     "compression": "^1.7.0",
     "express": "^4.15.3",
     "firebase": "^4.1.3",
-    "history": "^4.6.3",
     "isomorphic-fetch": "^2.2.1",
     "lru-cache": "^4.1.1",
     "normalize.css": "^7.0.0",
@@ -79,8 +82,9 @@
     "preact-render-to-string": "^3.6.3",
     "preact-transition-group": "^1.1.1",
     "promise-worker": "^1.1.1",
-    "query-string": "^4.3.4",
+    "query-string": "^5.0.0",
     "serve-favicon": "^2.4.3",
+    "tiny-history": "^1.0.7",
     "unfetch": "^3.0.0",
     "universal-router": "^3.2.0"
   }
