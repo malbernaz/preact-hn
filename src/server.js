@@ -9,6 +9,7 @@ import compression from "compression";
 import express from "express";
 import render from "preact-render-to-string";
 import serveFavicon from "serve-favicon";
+import LRU from "lru-cache";
 
 import assets from "./assets";
 import Html from "./components/Html";
@@ -30,7 +31,8 @@ app.use(
 );
 
 const chunks = Object.keys(assets)
-  .filter(c => !/fetch/.test(c) && !!assets[c].js)
+  .filter(Boolean)
+  .filter(c => !(/service/i.test(c) || /fetch/.test(c) || /thread/.test(c)))
   .map(c => assets[c].js);
 
 const router = new Router(routes);
@@ -42,7 +44,17 @@ function redirect(to, status) {
   throw error;
 }
 
+const cache = LRU({ max: 100, maxAge: 1000 });
+
 app.get("*", async (req, res, next) => {
+  if (cache.get(req.url)) {
+    const html = cache
+      .get(req.url)
+      .replace("__INITIAL_STATE__", `__INITIAL_STATE__=${JSON.stringify(store.getState())}`);
+
+    return res.end(`<!DOCTYPE html>${html}`);
+  }
+
   try {
     const css = [];
 
@@ -61,7 +73,6 @@ app.get("*", async (req, res, next) => {
     const data = {
       chunks,
       component,
-      initialState: `__INITIAL_STATE__=${JSON.stringify(store.getState())}`,
       manifest: assets.manifest.js,
       script: assets.main.js,
       style: css.join(""),
@@ -69,7 +80,14 @@ app.get("*", async (req, res, next) => {
       vendor: assets.vendor.js
     };
 
-    res.send(`<!DOCTYPE html>${render(<Html {...data} />)}`);
+    const html = render(<Html {...data} />).replace(
+      "__INITIAL_STATE__",
+      `__INITIAL_STATE__=${JSON.stringify(store.getState())}`
+    );
+
+    cache.set(req.url, html);
+
+    res.end(`<!DOCTYPE html>${html}`);
   } catch (err) {
     if (err.status === 404) {
       res.status(err.status);

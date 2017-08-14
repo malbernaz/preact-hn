@@ -2,7 +2,7 @@
 
 import config from "../config";
 
-export default ({ chunks, component, initialState, manifest, script, style, title, vendor }) =>
+export default ({ chunks, component, manifest, script, style, title, vendor }) =>
   <html lang={config.lang}>
     <head>
       <meta charSet="utf-8" />
@@ -31,7 +31,7 @@ export default ({ chunks, component, initialState, manifest, script, style, titl
     <body>
       <main dangerouslySetInnerHTML={{ __html: component }} />
 
-      <script dangerouslySetInnerHTML={{ __html: initialState }} />
+      <script>__INITIAL_STATE__</script>
 
       <script src={`/${manifest}`} defer />
       <script src={`/${vendor}`} defer />

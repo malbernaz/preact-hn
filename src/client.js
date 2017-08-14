@@ -7,6 +7,7 @@ import Provider from "./lib/ContextProvider";
 import UseScroll from "./lib/useScroll";
 import registerServiceWorker from "./sw-register";
 import store from "./store";
+import routes from "./routes";
 
 let CURRENT_LOCATION = history.location;
 let FIRST_RENDER = true;
@@ -39,7 +40,9 @@ const context = { insertCss, store };
 
 const mnt = document.querySelector("main");
 
-async function bootstrap(location) {
+const router = new Router(routes);
+
+async function bootstrap(location, router) {
   if (FIRST_RENDER) {
     if (!_DEV_) await registerServiceWorker();
 
@@ -49,10 +52,6 @@ async function bootstrap(location) {
   }
 
   CURRENT_LOCATION = location;
-
-  const routes = require("./routes").default;
-
-  const router = new Router(routes);
 
   const { pathname, search } = location;
 
@@ -81,8 +80,15 @@ async function bootstrap(location) {
   }
 }
 
-history.listen(bootstrap);
+history.listen(location => bootstrap(location, router));
 
-bootstrap(CURRENT_LOCATION);
+bootstrap(CURRENT_LOCATION, router);
 
-if (module.hot) module.hot.accept("./routes", () => bootstrap(CURRENT_LOCATION));
+if (module.hot) {
+  module.hot.accept("./routes", () => {
+    const nextRoutes = require("./routes").default;
+    const nextRouter = new Router(nextRoutes);
+
+    bootstrap(CURRENT_LOCATION, nextRouter);
+  });
+}
