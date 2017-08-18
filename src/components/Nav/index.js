@@ -24,7 +24,7 @@ const NavLink = props =>
 export default class extends Component {
   componentDidMount() {
     this.nav.addEventListener("transitionend", this.toggleBodyScroll, false);
-    [this.nav, this.lever].forEach(el => {
+    [this.nav, this.lever, this.shadow].forEach(el => {
       el.addEventListener("touchstart", this.onTouchStart, { passive: true });
       el.addEventListener("touchmove", this.onTouchMove, { passive: true });
       el.addEventListener("touchend", this.onTouchEnd, { passive: true });
@@ -33,7 +33,7 @@ export default class extends Component {
 
   componentWillUnmount() {
     this.nav.removeEventListener("transitionend", this.toggleBodyScroll, false);
-    [this.nav, this.lever].forEach(el => {
+    [this.nav, this.lever, this.shadow].forEach(el => {
       el.removeEventListener("touchstart", this.onTouchStart, { passive: true });
       el.removeEventListener("touchmove", this.onTouchMove, { passive: true });
       el.removeEventListener("touchend", this.onTouchEnd, { passive: true });

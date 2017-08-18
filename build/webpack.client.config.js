@@ -3,6 +3,7 @@ import webpack from "webpack";
 
 import { StatsWriterPlugin as StatsPlugin } from "webpack-stats-plugin";
 import CopyPlugin from "copy-webpack-plugin";
+// import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 import transform from "./stats-transform";
 import babelLoader from "./babelConfig";
@@ -78,8 +79,11 @@ export default ({ DEV, baseConfig }) => ({
         from: "**/*",
         to: resolve(__dirname, "..", "dist", "public")
       }
-    ])
-  ].concat(DEV ? [new webpack.HotModuleReplacementPlugin(), new webpack.NamedModulesPlugin()] : []),
+    ]),
+    // new BundleAnalyzerPlugin()
+    DEV && new webpack.HotModuleReplacementPlugin(),
+    DEV && new webpack.NamedModulesPlugin()
+  ].filter(Boolean),
   devServer: {
     port: 3001,
     host: "0.0.0.0",

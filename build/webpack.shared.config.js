@@ -108,8 +108,9 @@ export default env => {
         _CLIENT_: CLIENT,
         "process.env.NODE_ENV": JSON.stringify(DEV ? "development" : "production")
       }),
-      new webpack.optimize.ModuleConcatenationPlugin()
-    ].concat(!DEV ? [new BabiliPlugin()] : []),
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      !DEV && new BabiliPlugin()
+    ].filter(Boolean),
     stats: { colors: true }
   };
 

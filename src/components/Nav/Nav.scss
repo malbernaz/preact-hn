@@ -45,7 +45,7 @@
     padding: 1rem 0;
     transform: translateX(-105%);
     transition: transform .3s ease;
-    width: 250px;
+    width: 300px;
     will-change: transform;
   }
 
@@ -76,9 +76,9 @@
   .lever {
     position: absolute;
     height: 100vh;
-    width: 1.8rem;
+    width: 2.3rem;
     top: 0;
-    right: -1.8rem;
+    right: -2.3rem;
   }
 
   .link {
