@@ -35,7 +35,7 @@ export async function fetchComments(ids) {
     store.setState({ items: { ...store.getState().items, [id]: item } });
     return item;
   };
-  const items = await Promise.all(ids.map(async id => await (storeItems[id] || fetchAndStore(id))));
+  const items = await Promise.all(ids.map(async id => storeItems[id] || (await fetchAndStore(id))));
 
   for (let i in items) {
     const item = items[i];

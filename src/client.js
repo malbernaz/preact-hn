@@ -53,15 +53,9 @@ async function bootstrap(location, router) {
 
   CURRENT_LOCATION = location;
 
-  const { pathname, search } = location;
+  const { pathname: path, search } = location;
 
-  const route = await router.resolve({
-    path: pathname,
-    store,
-    redirect,
-    search,
-    ...routerMiddleware
-  });
+  const route = await router.resolve({ path, store, redirect, search, ...routerMiddleware });
 
   const component = (
     <Provider context={context}>

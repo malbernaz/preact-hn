@@ -31,8 +31,7 @@ app.use(
 );
 
 const chunks = Object.keys(assets)
-  .filter(Boolean)
-  .filter(c => !(/service/i.test(c) || /fetch/.test(c) || /thread/.test(c)))
+  .filter(c => !!assets[c].js && !(/service/i.test(c) || /fetch/.test(c) || /thread/.test(c)))
   .map(c => assets[c].js);
 
 const router = new Router(routes);
@@ -101,5 +100,11 @@ app.get("*", async (req, res, next) => {
 const port = process.env.PORT || 3000;
 
 server.listen(port, err => {
-  console.log(err || `\n==> server running on port ${port}\n`);
+  if (err) {
+    console.error("something went wrong :( : %", err);
+  }
+  if (_DEV_) {
+    console.log(`\n==> dev server running on https://0.0.0.0:${port + 1}\n`);
+  }
+  console.log(`\n==> server running on https://0.0.0.0:${port}\n`);
 });
