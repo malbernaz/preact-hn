@@ -1,7 +1,7 @@
 export const title = "Preact HN";
 export const description = "A hackernews clone built with preact";
 export const color = "#ffa52a";
-export const itemsPerPage = 20;
+export const itemsPerPage = 30;
 
 export default {
   lang: "en",
