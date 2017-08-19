@@ -91,17 +91,10 @@ export default class extends Component {
       <div class={s.root}>
         <a
           class={!navOpened ? s.shadow : s.shadowShown}
-          ref={c => {
-            this.shadow = c;
-          }}
+          ref={c => (this.shadow = c)}
           onClick={() => setTimeout(toggle, 1)}
         />
-        <nav
-          class={!navOpened ? s.nav : s.navShown}
-          ref={c => {
-            this.nav = c;
-          }}
-        >
+        <nav class={!navOpened ? s.nav : s.navShown} ref={c => (this.nav = c)}>
           <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/">
             top
           </NavLink>
@@ -117,13 +110,7 @@ export default class extends Component {
           <NavLink routes={routes} currentRoute={currentRoute} onClick={toggle} to="/job/">
             jobs
           </NavLink>
-          <div
-            class={s.lever}
-            ref={c => {
-              this.lever = c;
-            }}
-            onClick={navOpened && toggle}
-          />
+          <div class={s.lever} ref={c => (this.lever = c)} onClick={navOpened && toggle} />
         </nav>
       </div>
     );
