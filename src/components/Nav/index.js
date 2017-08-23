@@ -34,9 +34,9 @@ export default class extends Component {
   componentWillUnmount() {
     this.nav.removeEventListener("transitionend", this.toggleBodyScroll, false);
     [this.nav, this.lever, this.shadow].forEach(el => {
-      el.removeEventListener("touchstart", this.onTouchStart, { passive: true });
-      el.removeEventListener("touchmove", this.onTouchMove, { passive: true });
-      el.removeEventListener("touchend", this.onTouchEnd, { passive: true });
+      el.removeEventListener("touchstart", this.onTouchStart);
+      el.removeEventListener("touchmove", this.onTouchMove);
+      el.removeEventListener("touchend", this.onTouchEnd);
     });
   }
 

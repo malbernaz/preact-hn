@@ -26,10 +26,7 @@ export default env => {
           (acc, c) => ({ ...acc, [c]: `${c}/dist/${c}${!DEV ? ".min" : ""}` }),
           {}
         ),
-        HNService: CLIENT ? "./lib/HNService.client" : "./lib/HNService.server",
-        "socket.io": CLIENT
-          ? `socket.io-client/dist/socket.io${!DEV ? ".slim" : ""}.js`
-          : "socket.io"
+        HNService: CLIENT ? "./lib/HNService.client" : "./lib/HNService.server"
       },
       mainFields: ["jsnext:main", "main"]
     },

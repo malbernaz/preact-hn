@@ -104,7 +104,7 @@ server.listen(port, err => {
     console.error("something went wrong :( : %", err);
   }
   if (_DEV_) {
-    console.log(`\n==> dev server running on https://0.0.0.0:${port + 1}\n`);
+    console.log(`\n==> dev server running on http://0.0.0.0:${port + 1}\n`);
   }
-  console.log(`\n==> server running on https://0.0.0.0:${port}\n`);
+  console.log(`\n==> server running on http://0.0.0.0:${port}\n`);
 });
